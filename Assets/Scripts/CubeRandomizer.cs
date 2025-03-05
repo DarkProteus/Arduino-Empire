@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeRandomizer : MonoBehaviour
 {
     public Rigidbody rb;
     public static Vector3 diceVel;
-    private Vector3 startPos;
+    private Vector3 _startPos;
     private void Start()
     {
-        startPos = transform.position;
+        _startPos = transform.position;
         RollDice();
     }
     private void Update()
@@ -17,7 +15,7 @@ public class CubeRandomizer : MonoBehaviour
         diceVel = rb.velocity;
         if (Input.GetMouseButton(0))
         {
-            transform.position = startPos;
+            transform.position = _startPos;
             RollDice();
         }
     }
