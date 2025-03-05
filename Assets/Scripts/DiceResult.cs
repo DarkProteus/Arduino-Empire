@@ -3,8 +3,15 @@ using UnityEngine;
 public class DiceResult : MonoBehaviour
 {
     private Vector3 _diceVel;
-    private int _diceNum;
-
+    public int _diceNum;
+    public int readNum;
+    private CubeRandomizer _cb;
+    private MoveController _mc;
+    private void Start()
+    {
+        _mc = GameObject.Find("Player").GetComponent<MoveController>();
+        _cb = GameObject.Find("Dice").GetComponent<CubeRandomizer>();
+    }
     private void Update()
     {
         _diceVel = CubeRandomizer.diceVel;
@@ -12,7 +19,7 @@ public class DiceResult : MonoBehaviour
     
     void OnTriggerStay(Collider col)
     {
-        if (_diceVel.x == 0f && _diceVel.y == 0f && _diceVel.z == 0f)
+        if (_diceVel.x == 0f && _diceVel.y == 0f && _diceVel.z == 0f && readNum==0)
         {
             switch (col.gameObject.name)
             {
@@ -35,8 +42,9 @@ public class DiceResult : MonoBehaviour
                     _diceNum = 1;
                     break;
             }
-            print(_diceNum);
-
+            readNum++;
+            _cb.canBeRolled = true;
+            _mc.Move();
         }
     }
 }
