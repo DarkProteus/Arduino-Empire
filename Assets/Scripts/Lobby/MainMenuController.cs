@@ -19,10 +19,13 @@ public class MainMenuController : MonoBehaviour
         _playGame.onClick.AddListener(PlayGame);
         _quitGame.onClick.AddListener(QuitGame);
         _charSelectorObj.SetActive(false);
+        PlayerPrefs.SetString("Player1", "none");
+        PlayerPrefs.SetString("Player2", "none");
     }
     
     private void PlayGame()
     {
+        GetComponent<PlayersController>().StartPicking(Players.PLAYER1);
         _menuCanvas.SetActive(false);
 
         _charSelectorObj.SetActive(true);
@@ -46,7 +49,7 @@ public class MainMenuController : MonoBehaviour
             .SetEase(Ease.InOutQuad)
             );
 
-        
+
         sequence.Play();
     }
 

@@ -1,20 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PickCharController : MonoBehaviour
 {
     [SerializeField] private GameObject[] _characters;
     private List<GameObject> _cylinders = new List<GameObject>();
     private GameObject _currentHoveredCharacter = null;
     public static GameObject pickedChar;
+    private PlayersController controller;
     private void Start()
     {
-       foreach(var character in _characters)
+        controller = GetComponent<PlayersController>();
+       foreach (var character in _characters)
        {
             GameObject cylinder = character.transform.Find("Cylinder").gameObject;
             _cylinders.Add(cylinder);
             cylinder.SetActive(false);
         }
+        
     }
 
 
@@ -42,12 +46,8 @@ public class PickCharController : MonoBehaviour
                             _currentHoveredCharacter = character;
                             SetHighlight(_currentHoveredCharacter, true);
                         }
+                        SelectChar(character: character);
 
-                        if (Input.GetMouseButtonDown(0)) 
-                        {
-                            print($"Character: {character.name}");
-                            pickedChar = character;
-                        }
                         return;
                     }
                 }
@@ -66,6 +66,13 @@ public class PickCharController : MonoBehaviour
             {
                 cylinder.gameObject.SetActive(state);
             }
+        }
+    }
+    private void SelectChar(GameObject character)
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            controller.PickPlayer(character.name);
         }
     }
 }
