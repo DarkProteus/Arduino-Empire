@@ -60,15 +60,15 @@ public class DiceResult : MonoBehaviour
     {
         _mainCamera.transform.DOMove(new Vector3(_dicePos.transform.position.x,
                                                  _dicePos.transform.position.y,
-                                                 _dicePos.transform.position.z), 4f);
-        _mainCamera.transform.DORotate(new Vector3(80f, 0f, 0f), 4f).OnComplete(Zoom);
+                                                 _dicePos.transform.position.z), 1f);
+        _mainCamera.transform.DORotate(new Vector3(80f, 0f, 0f), 1f).OnComplete(Zoom);
     }
     private void DiceNoZoom()
     {
         _mainCamera.transform.DOMove(new Vector3(_dicePos.transform.position.x,
                                                  _dicePos.transform.position.y,
-                                                 _dicePos.transform.position.z), 4f);
-        _mainCamera.transform.DORotate(new Vector3(80f, 0f, 0f), 4f).OnComplete(Idle);
+                                                 _dicePos.transform.position.z), 1f);
+        _mainCamera.transform.DORotate(new Vector3(80f, 0f, 0f), 1f).OnComplete(Idle);
     }
     private void Zoom()
     {
@@ -78,7 +78,7 @@ public class DiceResult : MonoBehaviour
     }
     private void Idle()
     {
-        _mainCamera.transform.DOMove(_lastCamPos, 3f);
-        _mainCamera.transform.DORotate(_lastCamRot, 3f).OnComplete(_mc.Move);
+        _mainCamera.transform.DOMove(_lastCamPos, 1f);
+        _mainCamera.transform.DORotate(_lastCamRot, 1f).OnComplete(_mc.Move);
     }
 }

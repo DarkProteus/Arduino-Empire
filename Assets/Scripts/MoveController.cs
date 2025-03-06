@@ -29,7 +29,7 @@ public class MoveController : MonoBehaviour
             DefaultMove();
             print($"S Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
-        else if (_diceNum+_lastIndex > 6 & _lastIndex < 7 && _diceNum + _lastIndex != 7)
+        else if (_diceNum+_lastIndex > 6 & _lastIndex < 7)
         {
             lastCamPos = new Vector3(_secondPos.transform.position.x,
                                                      _secondPos.transform.position.y,
@@ -37,14 +37,25 @@ public class MoveController : MonoBehaviour
             lastCamRot= new Vector3(45f, 0f, 0f);
             _mainCamera.transform.DOMove(lastCamPos, 4f);
             _mainCamera.transform.DORotate(lastCamRot, 4f);
-            gameObject.transform.DOMove(
-                new Vector3(_listOfPos[7].transform.position.x,
-                            _listOfPos[7].transform.position.y, 
-                            _listOfPos[7].transform.position.z),
-                _diceNum).OnComplete(NotDefaultMove);
+            if (_diceNum + _lastIndex == 7)
+            {
+                gameObject.transform.DOMove(
+                    new Vector3(_listOfPos[7].transform.position.x,
+                                _listOfPos[7].transform.position.y,
+                                _listOfPos[7].transform.position.z),
+                    _diceNum);
+            }
+            else
+            {
+                gameObject.transform.DOMove(
+                    new Vector3(_listOfPos[7].transform.position.x,
+                                _listOfPos[7].transform.position.y,
+                                _listOfPos[7].transform.position.z),
+                    _diceNum).OnComplete(NotDefaultMove);
+            }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
-        else if (_diceNum + _lastIndex > 13 & _lastIndex < 14 && _diceNum + _lastIndex != 14)
+        else if (_diceNum + _lastIndex > 13 & _lastIndex < 14)
         {
             lastCamPos = new Vector3(_thirdPos.transform.position.x,
                                                      _thirdPos.transform.position.y,
@@ -52,14 +63,24 @@ public class MoveController : MonoBehaviour
             lastCamRot = new Vector3(45f, 90f, 0f);
             _mainCamera.transform.DOMove(lastCamPos, 4f);
             _mainCamera.transform.DORotate(lastCamRot, 4f);
-            gameObject.transform.DOMove(
-                new Vector3(_listOfPos[14].transform.position.x,
-                            _listOfPos[14].transform.position.y,
-                            _listOfPos[14].transform.position.z),
-                _diceNum).OnComplete(NotDefaultMove);
+            if (_diceNum + _lastIndex == 14) {
+                gameObject.transform.DOMove(
+                    new Vector3(_listOfPos[14].transform.position.x,
+                                _listOfPos[14].transform.position.y,
+                                _listOfPos[14].transform.position.z),
+                    _diceNum);
+            }
+            else
+            {
+                gameObject.transform.DOMove(
+                    new Vector3(_listOfPos[14].transform.position.x,
+                                _listOfPos[14].transform.position.y,
+                                _listOfPos[14].transform.position.z),
+                    _diceNum).OnComplete(NotDefaultMove);
+            }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
-        else if (_diceNum + _lastIndex > 20 & _lastIndex < 21 && _diceNum + _lastIndex != 21)
+        else if (_diceNum + _lastIndex > 20 & _lastIndex < 21)
         {
             lastCamPos = new Vector3(_fourthPos.transform.position.x,
                                                      _fourthPos.transform.position.y,
@@ -67,14 +88,25 @@ public class MoveController : MonoBehaviour
             lastCamRot = new Vector3(45f, 180f, 0f);
             _mainCamera.transform.DOMove(lastCamPos, 4f);
             _mainCamera.transform.DORotate(lastCamRot, 4f);
-            gameObject.transform.DOMove(
+            if (_diceNum + _lastIndex == 21)
+            {
+                gameObject.transform.DOMove(
+                new Vector3(_listOfPos[21].transform.position.x,
+                            _listOfPos[21].transform.position.y,
+                            _listOfPos[21].transform.position.z),
+                _diceNum);
+            }
+            else
+            {
+                gameObject.transform.DOMove(
                 new Vector3(_listOfPos[21].transform.position.x,
                             _listOfPos[21].transform.position.y,
                             _listOfPos[21].transform.position.z),
                 _diceNum).OnComplete(NotDefaultMove);
+            }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
-        else if (_diceNum + _lastIndex > 27 & _lastIndex < 28 && _diceNum + _lastIndex != 28)
+        else if (_diceNum + _lastIndex > 27 & _lastIndex < 28)
         {
             lastCamPos = new Vector3(_firstPos.transform.position.x,
                                                      _firstPos.transform.position.y,
@@ -82,11 +114,22 @@ public class MoveController : MonoBehaviour
             lastCamRot = new Vector3(45f, 270f, 0f);
             _mainCamera.transform.DOMove(lastCamPos, 4f);
             _mainCamera.transform.DORotate(lastCamRot, 4f);
-            gameObject.transform.DOMove(
+            if (_diceNum + _lastIndex == 28)
+            {
+                gameObject.transform.DOMove(
+                new Vector3(_listOfPos[0].transform.position.x,
+                            _listOfPos[0].transform.position.y,
+                            _listOfPos[0].transform.position.z),
+                _diceNum);
+            }
+            else
+            {
+                gameObject.transform.DOMove(
                 new Vector3(_listOfPos[0].transform.position.x,
                             _listOfPos[0].transform.position.y,
                             _listOfPos[0].transform.position.z),
                 _diceNum).OnComplete(NotDefaultMove);
+            }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
         else
@@ -106,6 +149,14 @@ public class MoveController : MonoBehaviour
                             _listOfPos[0].transform.position.z),
                  _diceNum * 1f);
             _lastIndex = 0;
+        }else if (_diceNum+_lastIndex>28)
+        {
+
+            gameObject.transform.DOMove(
+                new Vector3(_listOfPos[_diceNum + _lastIndex-28].transform.position.x,
+                            _listOfPos[_diceNum + _lastIndex-28].transform.position.y,
+                            _listOfPos[_diceNum + _lastIndex-28].transform.position.z),
+                 _diceNum * 1f);
         }
         else
         {
