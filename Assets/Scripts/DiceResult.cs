@@ -27,21 +27,22 @@ public class DiceResult : MonoBehaviour
                     _diceNum = 6;
                     break;
                 case "2":
-                    _diceNum = 5;
-                    break;
-                case "3":
                     _diceNum = 4;
                     break;
+                case "3":
+                    _diceNum = 5;
+                    break;
                 case "4":
-                    _diceNum = 3;
+                    _diceNum = 2;
                     break;
                 case "5":
-                    _diceNum = 2;
+                    _diceNum = 3;
                     break;
                 case "6":
                     _diceNum = 1;
                     break;
             }
+            print(_diceNum);
             readNum++;
             _cb.canBeRolled = true;
             _mc.Move();

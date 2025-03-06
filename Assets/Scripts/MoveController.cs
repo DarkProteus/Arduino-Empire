@@ -67,11 +67,23 @@ public class MoveController : MonoBehaviour
     }
     private void DefaultMove()
     {
-        gameObject.transform.DOMove(
-            new Vector3(_listOfPos[_diceNum + _lastIndex].transform.position.x,
-                        _listOfPos[_diceNum + _lastIndex].transform.position.y,
-                        _listOfPos[_diceNum + _lastIndex].transform.position.z),
-             _diceNum * 1f);
+        if (_diceNum + _lastIndex == 28)
+        {
+            gameObject.transform.DOMove(
+                new Vector3(_listOfPos[0].transform.position.x,
+                            _listOfPos[0].transform.position.y,
+                            _listOfPos[0].transform.position.z),
+                 _diceNum * 1f);
+            _lastIndex = 0;
+        }
+        else
+        {
+            gameObject.transform.DOMove(
+                new Vector3(_listOfPos[_diceNum + _lastIndex].transform.position.x,
+                            _listOfPos[_diceNum + _lastIndex].transform.position.y,
+                            _listOfPos[_diceNum + _lastIndex].transform.position.z),
+                 _diceNum * 1f);
+        }
     }
     private void NotDefaultMove()
     {
@@ -81,7 +93,7 @@ public class MoveController : MonoBehaviour
             new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.x,
                         _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.y,
                         _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.z),
-             (_diceNum + _lastIndex) * 1f);
+            _diceNum * 1f);
             _lastIndex -= 28;
         }
         else
@@ -90,7 +102,7 @@ public class MoveController : MonoBehaviour
             new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.x,
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.y,
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.z),
-             (_diceNum + _lastIndex) * 1f);
+             _diceNum * 1f);
         }
     }
 }

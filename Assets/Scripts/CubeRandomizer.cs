@@ -9,6 +9,7 @@ public class CubeRandomizer : MonoBehaviour
     private DiceResult _dr;
     private void Start()
     {
+        RollDice();
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
         _startPos = transform.position;
     }
