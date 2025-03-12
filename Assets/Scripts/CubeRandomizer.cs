@@ -7,23 +7,23 @@ public class CubeRandomizer : MonoBehaviour
     private Vector3 _startPos;
     public bool canBeRolled;
     private DiceResult _dr;
+    public GameObject player;
+
     private void Start()
     {
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
-        RollDice();
         _startPos = transform.position;
     }
     private void Update()
     {
         diceVel = rb.velocity;
-        if (Input.GetMouseButton(0)&& canBeRolled)
-        {
-            transform.position = _startPos;
-            RollDice();
-        }
+
     }
-    public void RollDice()
+    public void RollDice(GameObject obj)
     {
+        if (!canBeRolled) return;
+        player = obj;
+        transform.position = _startPos;
         _dr.readNum = 0;
         canBeRolled = false;
         rb.velocity = Vector3.zero; 

@@ -19,8 +19,8 @@ public class MainMenuController : MonoBehaviour
         _playGame.onClick.AddListener(PlayGame);
         _quitGame.onClick.AddListener(QuitGame);
         _charSelectorObj.SetActive(false);
-        PlayerPrefs.SetString("Player1", "none");
-        PlayerPrefs.SetString("Player2", "none");
+        PlayerPrefs.SetString("PLAYER1", "none");
+        PlayerPrefs.SetString("PLAYER2", "none");
     }
     
     private void PlayGame()

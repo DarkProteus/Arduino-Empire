@@ -4,38 +4,70 @@ using UnityEngine;
 
 public class ModelLoader : MonoBehaviour
 {
+    public static ModelLoader instance;
     [SerializeField] private GameObject _stromTrooperModel;
     [SerializeField] private GameObject _elPrimoModel;
     [SerializeField] private GameObject _creeperModel;
-    private void Start()
+    [SerializeField] private GameObject _startGameTile;
+    private void Awake()
     {
-        LoadModels();
+        instance = this;
     }
-    public void LoadModels()
+    public string LoadModels(string name)
     {
-        if(PlayerPrefs.GetString("Player1") == "StromTrooper")
+        string loadedName = PlayerPrefs.GetString(name);
+        print($"{name},{loadedName}");
+        if (string.IsNullOrEmpty(loadedName)) return "Error";
+
+        switch (loadedName)
         {
-            Instantiate(_stromTrooperModel, new Vector3(-1,0,0), Quaternion.identity);
+            case "Creeper":
+                {
+                    GameObject obj=Instantiate(
+                        _creeperModel,
+                        _startGameTile.transform.position,
+                        Quaternion.identity
+                        );
+
+                    obj.AddComponent<PlayerController>();
+                    obj.AddComponent<Rigidbody>();
+                    obj.GetComponent<Rigidbody>().useGravity = false;
+                    obj.name = name;
+                    obj.tag = name;
+                }
+                
+                    break;
+            case "ElPrimo":
+                {
+                   GameObject obj= Instantiate(
+                       _elPrimoModel,
+                       _startGameTile.transform.position,
+                       Quaternion.identity
+                       );
+
+                    obj.AddComponent<PlayerController>();
+                    obj.AddComponent<Rigidbody>();
+                    obj.GetComponent<Rigidbody>().useGravity = false;
+                    obj.name = name;
+                    obj.tag = name;
+                }
+                    break;
+            case "StromTrooper":
+                {
+                   GameObject obj= Instantiate(
+                       _stromTrooperModel,
+                       _startGameTile.transform.position,
+                       Quaternion.identity
+                       );
+
+                    obj.AddComponent<PlayerController>();
+                    obj.AddComponent<Rigidbody>();
+                    obj.GetComponent<Rigidbody>().useGravity = false;
+                    obj.name = name;
+                    obj.tag = name;
+                }
+                    break;
         }
-        else if(PlayerPrefs.GetString("Player1") == "ElPrimo")
-        {
-            Instantiate(_elPrimoModel, new Vector3(-1, 0, 0), Quaternion.identity);
-        }
-        else if (PlayerPrefs.GetString("Player1") == "Creeper")
-        {
-            Instantiate(_creeperModel, new Vector3(-1, 0, 0), Quaternion.identity);
-        }
-        if (PlayerPrefs.GetString("Player2") == "StromTrooper")
-        {
-            Instantiate(_stromTrooperModel, new Vector3(1, 0, 0), Quaternion.identity);
-        }
-        else if (PlayerPrefs.GetString("Player2") == "ElPrimo")
-        {
-            Instantiate(_elPrimoModel, new Vector3(1, 0, 0), Quaternion.identity);
-        }
-        else if (PlayerPrefs.GetString("Player2") == "Creeper")
-        {
-            Instantiate(_creeperModel, new Vector3(1, 0, 0), Quaternion.identity);
-        }
+        return name;
     }
 }

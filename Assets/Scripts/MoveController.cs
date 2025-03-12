@@ -18,8 +18,11 @@ public class MoveController : MonoBehaviour
     [SerializeField] private GameObject _fourthPos;
     public Vector3 lastCamPos = new Vector3(5.2f, 4.2f, 0f);
     public Vector3 lastCamRot = new Vector3(45, 270, 0f);
-    public void Move()
+    private GameObject _player;
+    public void Move(GameObject obj)
     {
+        _player = obj;
+        _lastIndex = obj.GetComponent<PlayerController>().lastIndex;
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
         _cr = GameObject.Find("Dice").GetComponent<CubeRandomizer>();
         _diceNum = _dr._diceNum;
@@ -27,7 +30,7 @@ public class MoveController : MonoBehaviour
         if (_lastIndex == 0)
         {
             DefaultMove();
-            print($"S Last Index:{_lastIndex} Dice Number: {_diceNum}");
+            print($"S Last Index:{_lastIndex} Dice Number: {_diceNum}, {_player.name}");
         }
         else if (_diceNum+_lastIndex > 6 & _lastIndex < 7)
         {
@@ -39,7 +42,7 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 7)
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                     new Vector3(_listOfPos[7].transform.position.x,
                                 _listOfPos[7].transform.position.y,
                                 _listOfPos[7].transform.position.z),
@@ -47,7 +50,7 @@ public class MoveController : MonoBehaviour
             }
             else
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                     new Vector3(_listOfPos[7].transform.position.x,
                                 _listOfPos[7].transform.position.y,
                                 _listOfPos[7].transform.position.z),
@@ -64,7 +67,7 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DOMove(lastCamPos, 4f);
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 14) {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                     new Vector3(_listOfPos[14].transform.position.x,
                                 _listOfPos[14].transform.position.y,
                                 _listOfPos[14].transform.position.z),
@@ -72,7 +75,7 @@ public class MoveController : MonoBehaviour
             }
             else
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                     new Vector3(_listOfPos[14].transform.position.x,
                                 _listOfPos[14].transform.position.y,
                                 _listOfPos[14].transform.position.z),
@@ -90,7 +93,7 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 21)
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                 new Vector3(_listOfPos[21].transform.position.x,
                             _listOfPos[21].transform.position.y,
                             _listOfPos[21].transform.position.z),
@@ -98,7 +101,7 @@ public class MoveController : MonoBehaviour
             }
             else
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                 new Vector3(_listOfPos[21].transform.position.x,
                             _listOfPos[21].transform.position.y,
                             _listOfPos[21].transform.position.z),
@@ -116,7 +119,7 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 28)
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                 new Vector3(_listOfPos[0].transform.position.x,
                             _listOfPos[0].transform.position.y,
                             _listOfPos[0].transform.position.z),
@@ -124,7 +127,7 @@ public class MoveController : MonoBehaviour
             }
             else
             {
-                gameObject.transform.DOMove(
+                _player.transform.DOMove(
                 new Vector3(_listOfPos[0].transform.position.x,
                             _listOfPos[0].transform.position.y,
                             _listOfPos[0].transform.position.z),
@@ -138,12 +141,13 @@ public class MoveController : MonoBehaviour
             DefaultMove();
         }
         _lastIndex = _diceNum + _lastIndex;
+        obj.GetComponent<PlayerController>().lastIndex = _lastIndex;
     }
     private void DefaultMove()
     {
         if (_diceNum + _lastIndex == 28)
         {
-            gameObject.transform.DOMove(
+            _player.transform.DOMove(
                 new Vector3(_listOfPos[0].transform.position.x,
                             _listOfPos[0].transform.position.y,
                             _listOfPos[0].transform.position.z),
@@ -152,7 +156,7 @@ public class MoveController : MonoBehaviour
         }else if (_diceNum+_lastIndex>28)
         {
 
-            gameObject.transform.DOMove(
+            _player.transform.DOMove(
                 new Vector3(_listOfPos[_diceNum + _lastIndex-28].transform.position.x,
                             _listOfPos[_diceNum + _lastIndex-28].transform.position.y,
                             _listOfPos[_diceNum + _lastIndex-28].transform.position.z),
@@ -160,7 +164,7 @@ public class MoveController : MonoBehaviour
         }
         else
         {
-            gameObject.transform.DOMove(
+            _player.transform.DOMove(
                 new Vector3(_listOfPos[_diceNum + _lastIndex].transform.position.x,
                             _listOfPos[_diceNum + _lastIndex].transform.position.y,
                             _listOfPos[_diceNum + _lastIndex].transform.position.z),
@@ -171,7 +175,7 @@ public class MoveController : MonoBehaviour
     {
         if(_diceNum + _lastIndex -_diceNum > 28)
         {
-            gameObject.transform.DOMove(
+            _player.transform.DOMove(
             new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.x,
                         _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.y,
                         _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.z),
@@ -180,7 +184,7 @@ public class MoveController : MonoBehaviour
         }
         else
         {
-            gameObject.transform.DOMove(
+            _player.transform.DOMove(
             new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.x,
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.y,
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.z),

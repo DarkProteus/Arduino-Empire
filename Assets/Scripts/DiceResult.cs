@@ -16,8 +16,8 @@ public class DiceResult : MonoBehaviour
     private Vector3 _lastCamRot;
     private void Start()
     {
-        _mc = GameObject.Find("Player").GetComponent<MoveController>();
-        _cb = GameObject.Find("Dice").GetComponent<CubeRandomizer>();
+        _mc = FindObjectOfType<MoveController>();
+        _cb = FindObjectOfType<CubeRandomizer>();
     }
     private void Update()
     {
@@ -79,6 +79,7 @@ public class DiceResult : MonoBehaviour
     private void Idle()
     {
         _mainCamera.transform.DOMove(_lastCamPos, 1f);
-        _mainCamera.transform.DORotate(_lastCamRot, 1f).OnComplete(_mc.Move);
+        _mainCamera.transform.DORotate(_lastCamRot, 1f).OnComplete(
+            ()=>_mc.Move(_cb.player));
     }
 }

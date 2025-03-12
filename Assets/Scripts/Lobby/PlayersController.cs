@@ -28,7 +28,7 @@ public class PlayersController : MonoBehaviour
     {
             _playersText[counter].gameObject.SetActive(true);
             _playersText[counter].text = $"Гравець {counter + 1} обрав {charName}";
-            PlayerPrefs.SetString($"Player{counter + 1}", charName);
+            PlayerPrefs.SetString($"PLAYER{counter + 1}", charName);
             counter++;
             StartPicking(Players.PLAYER2);
     }
@@ -40,7 +40,7 @@ public class PlayersController : MonoBehaviour
             _pickText.gameObject.SetActive(true);
             _pickText.text = $"Оберіть персонажа за якого будете грати";
             
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(.3f);
             GetComponent<PickCharController>().enabled = true;
         }
 
@@ -57,7 +57,7 @@ public class PlayersController : MonoBehaviour
         while (c > 0)
         {
             _pickText.text = $"Гравців обрано, гра почнеться через {c}";
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.1f);
             c--;
         }
         SceneManager.LoadScene(1);
