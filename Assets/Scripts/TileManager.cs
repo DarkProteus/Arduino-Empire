@@ -8,12 +8,14 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField]private Tile tile;
     public string _name;
+    public Sprite _sprite;
     public string _desc;
     public int _price;
     public string _type;
     public bool _alreadyBought;
     void Start()
     {
+        _sprite = tile.spriteOfTile;
         _name = tile.nameOfTile;
         _desc = tile.descOfTile;
         _price = tile.priceOfTile;

@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: Hackathon
   descOfTile: The player gains bonuses for completing a successful project.
   typeOfTile: Event
+  spriteOfTile: {fileID: 21300000, guid: f8a333db9aaa19f49b00905627a53130, type: 3}
   priceOfTile: 0
   alreadyBought: 1

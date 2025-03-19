@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: DHT11
   descOfTile: A temperature and humidity sensor.
   typeOfTile: Sensor
+  spriteOfTile: {fileID: 21300000, guid: f8897604ac34017498a9264608906e10, type: 3}
   priceOfTile: 250
   alreadyBought: 0

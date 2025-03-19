@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: MQ-2
   descOfTile: A gas and smoke detection sensor.
   typeOfTile: Sensor
+  spriteOfTile: {fileID: 21300000, guid: bf6100f991ea35b44aca58bc56927bb8, type: 3}
   priceOfTile: 200
   alreadyBought: 0

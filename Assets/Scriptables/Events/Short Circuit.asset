@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: Short Circuit
   descOfTile: A wiring mistake leads to penalties for incorrect connections.
   typeOfTile: Event
+  spriteOfTile: {fileID: 21300000, guid: cf950c44da9a33c4d92254fe1d080332, type: 3}
   priceOfTile: 0
   alreadyBought: 1

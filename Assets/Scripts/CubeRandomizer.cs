@@ -1,5 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class CubeRandomizer : MonoBehaviour
 {
     public Rigidbody rb;
@@ -11,24 +13,24 @@ public class CubeRandomizer : MonoBehaviour
 
     private void Start()
     {
+        canBeRolled = true;
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
         _startPos = transform.position;
     }
     private void Update()
     {
         diceVel = rb.velocity;
-
     }
     public void RollDice(GameObject obj)
     {
         if (!canBeRolled) return;
         player = obj;
         transform.position = _startPos;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        rb.AddTorque(Random.insideUnitSphere * 10, ForceMode.Impulse);
         _dr.readNum = 0;
         canBeRolled = false;
-        rb.velocity = Vector3.zero; 
-        rb.angularVelocity = Vector3.zero; 
-        rb.AddForce(Vector3.up * 5, ForceMode.Impulse); 
-        rb.AddTorque(Random.insideUnitSphere * 10, ForceMode.Impulse); 
     }
 }

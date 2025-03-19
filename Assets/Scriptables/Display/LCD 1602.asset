@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: LCD 1602
   descOfTile: A 16x2 character display module.
   typeOfTile: Display
+  spriteOfTile: {fileID: 21300000, guid: 18426608fcd51af4385048ec9150bcd2, type: 3}
   priceOfTile: 700
   alreadyBought: 0

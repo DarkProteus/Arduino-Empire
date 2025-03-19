@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: Arduino Uno
   descOfTile: A classic board for beginners, based on ATmega328P.
   typeOfTile: ArduinoBoard
+  spriteOfTile: {fileID: 21300000, guid: dd9a89567e606874ca939ca21868ddf5, type: 3}
   priceOfTile: 1000
   alreadyBought: 0

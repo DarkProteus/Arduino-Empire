@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: SG90 Servo
   descOfTile: A small servo motor for precise movement.
   typeOfTile: Actuator
+  spriteOfTile: {fileID: 21300000, guid: f6636141f4bc2ff4e97f233c171955bc, type: 3}
   priceOfTile: 100
   alreadyBought: 0

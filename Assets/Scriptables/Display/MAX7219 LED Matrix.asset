@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: MAX7219 LED Matrix
   descOfTile: A dot matrix display for animations and text.
   typeOfTile: Display
+  spriteOfTile: {fileID: 21300000, guid: 55a816370ef974244a7f02ed731400d7, type: 3}
   priceOfTile: 800
   alreadyBought: 0

@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: MFRC522
   descOfTile: An RFID module for reading NFC cards.
   typeOfTile: Module
+  spriteOfTile: {fileID: 21300000, guid: 9420ec37da784d143a48516d15107093, type: 3}
   priceOfTile: 450
   alreadyBought: 0

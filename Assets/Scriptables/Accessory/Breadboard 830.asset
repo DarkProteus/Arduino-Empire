@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: Breadboard 830
   descOfTile: A prototyping board for assembling circuits.
   typeOfTile: Accessory
+  spriteOfTile: {fileID: 21300000, guid: e8d05194be370294d8afac1391476182, type: 3}
   priceOfTile: 100
   alreadyBought: 0

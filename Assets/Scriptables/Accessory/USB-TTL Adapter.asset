@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: USB-TTL Adapter
   descOfTile: A USB-to-serial adapter for programming microcontrollers.
   typeOfTile: Accessory
+  spriteOfTile: {fileID: 21300000, guid: 08d2242d6cbd6634bae7e5f0b817c58d, type: 3}
   priceOfTile: 50
   alreadyBought: 0

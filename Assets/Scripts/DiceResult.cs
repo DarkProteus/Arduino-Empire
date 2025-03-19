@@ -10,14 +10,18 @@ public class DiceResult : MonoBehaviour
     [SerializeField] private GameObject _idlePos;
     [SerializeField] private GameObject _dicePos;
     [SerializeField] private GameObject _zoomPos;
-    private CubeRandomizer _cb;
+    private GameObject dice;
+    private CubeRandomizer _cr;
     private MoveController _mc;
     private Vector3 _lastCamPos;
     private Vector3 _lastCamRot;
     private void Start()
     {
+        dice = GameObject.Find("Dice");
+        readNum = 1;
         _mc = FindObjectOfType<MoveController>();
-        _cb = FindObjectOfType<CubeRandomizer>();
+        _cr = FindObjectOfType<CubeRandomizer>();
+        _zoomPos = dice;
     }
     private void Update()
     {
@@ -52,7 +56,7 @@ public class DiceResult : MonoBehaviour
                     break;
             }
             readNum++;
-            _cb.canBeRolled = true;
+            _cr.canBeRolled = true;
             Dice();
         }
     }
@@ -73,13 +77,13 @@ public class DiceResult : MonoBehaviour
     private void Zoom()
     {
         _mainCamera.transform.DOMove(new Vector3(_zoomPos.transform.position.x,
-                                                _zoomPos.transform.position.y,
-                                                _zoomPos.transform.position.z), 3f).OnComplete(DiceNoZoom);
+                                                _zoomPos.transform.position.y+2f,
+                                                _zoomPos.transform.position.z-0.4f), 3f).OnComplete(DiceNoZoom);
     }
     private void Idle()
     {
         _mainCamera.transform.DOMove(_lastCamPos, 1f);
         _mainCamera.transform.DORotate(_lastCamRot, 1f).OnComplete(
-            ()=>_mc.Move(_cb.player));
+            ()=>_mc.Move(_cr.player));
     }
 }

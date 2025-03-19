@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: ATmega328P
   descOfTile: The microcontroller used in Arduino Uno.
   typeOfTile: Microcontroller
+  spriteOfTile: {fileID: 21300000, guid: 51dad70bf6060b9458c585550a0b16ea, type: 3}
   priceOfTile: 1300
   alreadyBought: 0

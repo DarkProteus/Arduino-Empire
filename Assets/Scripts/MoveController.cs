@@ -28,7 +28,7 @@ public class MoveController : MonoBehaviour
         _lastIndex = obj.GetComponent<PlayerController>().lastIndex;
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
         _cr = GameObject.Find("Dice").GetComponent<CubeRandomizer>();
-        _uc = GameObject.Find("EventSystem").GetComponent<UIController>();
+        _uc = GameObject.Find("GameController").GetComponent<UIController>();
         _diceNum = _dr._diceNum;
         if (!_cr.canBeRolled) return;
         if (_lastIndex == 0)
@@ -50,7 +50,10 @@ public class MoveController : MonoBehaviour
                     new Vector3(_listOfPos[7].transform.position.x,
                                 _listOfPos[7].transform.position.y,
                                 _listOfPos[7].transform.position.z),
-                    _diceNum);
+                                _diceNum)
+                                .OnComplete(() => {
+                                    GetTile();
+                                });
             }
             else
             {
@@ -75,7 +78,10 @@ public class MoveController : MonoBehaviour
                     new Vector3(_listOfPos[14].transform.position.x,
                                 _listOfPos[14].transform.position.y,
                                 _listOfPos[14].transform.position.z),
-                    _diceNum);
+                                _diceNum)
+                                .OnComplete(() => {
+                                    GetTile();
+                                });
             }
             else
             {
@@ -101,7 +107,10 @@ public class MoveController : MonoBehaviour
                 new Vector3(_listOfPos[21].transform.position.x,
                             _listOfPos[21].transform.position.y,
                             _listOfPos[21].transform.position.z),
-                _diceNum);
+                            _diceNum)
+                            .OnComplete(() => {
+                                GetTile();
+                            });
             }
             else
             {
@@ -127,7 +136,10 @@ public class MoveController : MonoBehaviour
                 new Vector3(_listOfPos[0].transform.position.x,
                             _listOfPos[0].transform.position.y,
                             _listOfPos[0].transform.position.z),
-                _diceNum);
+                            _diceNum)
+                            .OnComplete(() => {
+                                GetTile();
+                            });
             }
             else
             {
@@ -146,7 +158,6 @@ public class MoveController : MonoBehaviour
         }
         _lastIndex = _diceNum + _lastIndex;
         obj.GetComponent<PlayerController>().lastIndex = _lastIndex;
-        StartCoroutine(WaitUntilStopped());
     }
     private void DefaultMove()
     {
@@ -156,7 +167,10 @@ public class MoveController : MonoBehaviour
                 new Vector3(_listOfPos[0].transform.position.x,
                             _listOfPos[0].transform.position.y,
                             _listOfPos[0].transform.position.z),
-                 _diceNum * 1f);
+                            _diceNum * 1f)
+                            .OnComplete(() => {
+                                GetTile();
+                            });
             _lastIndex = 0;
         }else if (_diceNum+_lastIndex>28)
         {
@@ -165,7 +179,10 @@ public class MoveController : MonoBehaviour
                 new Vector3(_listOfPos[_diceNum + _lastIndex-28].transform.position.x,
                             _listOfPos[_diceNum + _lastIndex-28].transform.position.y,
                             _listOfPos[_diceNum + _lastIndex-28].transform.position.z),
-                 _diceNum * 1f);
+                            _diceNum * 1f)
+                            .OnComplete(() => {
+                                 GetTile();
+                            });
         }
         else
         {
@@ -173,7 +190,10 @@ public class MoveController : MonoBehaviour
                 new Vector3(_listOfPos[_diceNum + _lastIndex].transform.position.x,
                             _listOfPos[_diceNum + _lastIndex].transform.position.y,
                             _listOfPos[_diceNum + _lastIndex].transform.position.z),
-                 _diceNum * 1f);
+                            _diceNum * 1f)
+                            .OnComplete(() => {
+                                GetTile();
+                            });
         }
     }
     private void NotDefaultMove()
@@ -184,7 +204,10 @@ public class MoveController : MonoBehaviour
             new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.x,
                         _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.y,
                         _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.z),
-            _diceNum * 1f);
+                        _diceNum * 1f)
+                        .OnComplete(() => {
+                            GetTile(); 
+                        });
             _lastIndex -= 28;
         }
         else
@@ -193,27 +216,17 @@ public class MoveController : MonoBehaviour
             new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.x,
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.y,
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.z),
-             _diceNum * 1f);
+                        _diceNum * 1f)
+                        .OnComplete(() => {
+                            GetTile();
+                        });
         }
     }
     private void GetTile()
     {
         RaycastHit hit;
         Vector3 downDirection = Vector3.down;
-
-        if (Physics.Raycast(_player.transform.position, downDirection, out hit, Mathf.Infinity))
-        {
-            _uc.CallPanel(hit.collider.gameObject);
-        }
-    }
-    IEnumerator WaitUntilStopped()
-    {
-        while (_rb.velocity.magnitude > 0.1f)
-        {
-            print(_rb.velocity.magnitude);
-            yield return null;
-        }
-        print(_rb.velocity.magnitude);
-        GetTile();
+        Physics.Raycast(_player.transform.position, downDirection, out hit, Mathf.Infinity);
+        _uc.CallPanel(hit.collider.gameObject);
     }
 }

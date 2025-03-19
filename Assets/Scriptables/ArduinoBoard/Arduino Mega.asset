@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: Arduino Mega
   descOfTile: A powerful board with multiple I/O pins, ideal for large projects.
   typeOfTile: ArduinoBoard
+  spriteOfTile: {fileID: 21300000, guid: f6e121c28c2879f47ad37297067d6217, type: 3}
   priceOfTile: 800
   alreadyBought: 0

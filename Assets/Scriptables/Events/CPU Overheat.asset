@@ -15,5 +15,6 @@ MonoBehaviour:
   nameOfTile: CPU Overheat
   descOfTile: The microcontroller overheats, causing the player to lose a turn.
   typeOfTile: Event
+  spriteOfTile: {fileID: 21300000, guid: 99a654cd10c4a6843a1d10057618a21e, type: 3}
   priceOfTile: 0
   alreadyBought: 1
