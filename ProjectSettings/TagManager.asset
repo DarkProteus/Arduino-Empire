@@ -7,6 +7,7 @@ TagManager:
   - Plane
   - PLAYER1
   - PLAYER2
+  - Tile
   layers:
   - Default
   - TransparentFX

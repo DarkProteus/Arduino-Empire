@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayersTurn();
             FindObjectOfType<CubeRandomizer>()

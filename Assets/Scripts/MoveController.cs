@@ -11,6 +11,8 @@ public class MoveController : MonoBehaviour
     private int _diceNum;
     private CubeRandomizer _cr;
     private DiceResult _dr;
+    private UIController _uc;
+    private Rigidbody _rb;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private GameObject _firstPos;
     [SerializeField] private GameObject _secondPos;
@@ -22,9 +24,11 @@ public class MoveController : MonoBehaviour
     public void Move(GameObject obj)
     {
         _player = obj;
+        _rb = _player.GetComponent<Rigidbody>();
         _lastIndex = obj.GetComponent<PlayerController>().lastIndex;
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
         _cr = GameObject.Find("Dice").GetComponent<CubeRandomizer>();
+        _uc = GameObject.Find("EventSystem").GetComponent<UIController>();
         _diceNum = _dr._diceNum;
         if (!_cr.canBeRolled) return;
         if (_lastIndex == 0)
@@ -142,6 +146,7 @@ public class MoveController : MonoBehaviour
         }
         _lastIndex = _diceNum + _lastIndex;
         obj.GetComponent<PlayerController>().lastIndex = _lastIndex;
+        StartCoroutine(WaitUntilStopped());
     }
     private void DefaultMove()
     {
@@ -190,5 +195,25 @@ public class MoveController : MonoBehaviour
                         _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.z),
              _diceNum * 1f);
         }
+    }
+    private void GetTile()
+    {
+        RaycastHit hit;
+        Vector3 downDirection = Vector3.down;
+
+        if (Physics.Raycast(_player.transform.position, downDirection, out hit, Mathf.Infinity))
+        {
+            _uc.CallPanel(hit.collider.gameObject);
+        }
+    }
+    IEnumerator WaitUntilStopped()
+    {
+        while (_rb.velocity.magnitude > 0.1f)
+        {
+            print(_rb.velocity.magnitude);
+            yield return null;
+        }
+        print(_rb.velocity.magnitude);
+        GetTile();
     }
 }
