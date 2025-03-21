@@ -8,6 +8,7 @@ TagManager:
   - PLAYER1
   - PLAYER2
   - Tile
+  - Position
   layers:
   - Default
   - TransparentFX

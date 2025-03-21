@@ -7,6 +7,7 @@ using TMPro;
 public class TileManager : MonoBehaviour
 {
     [SerializeField]private Tile tile;
+    private TMP_Text _text;
     public string _name;
     public Sprite _sprite;
     public string _desc;
@@ -15,12 +16,18 @@ public class TileManager : MonoBehaviour
     public bool _alreadyBought;
     void Start()
     {
-        _sprite = tile.spriteOfTile;
         _name = tile.nameOfTile;
         _desc = tile.descOfTile;
         _price = tile.priceOfTile;
         _type = tile.typeOfTile;
         _alreadyBought = tile.alreadyBought;
+        _sprite = tile.spriteOfTile;
+        if (_type != "Event")
+        {
+            _text = gameObject.GetComponentInChildren<TMP_Text>(true);
+            _text.gameObject.SetActive(true);
+            _text.text = _name;
+        }
     }
 
 }

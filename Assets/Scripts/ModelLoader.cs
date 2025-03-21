@@ -23,48 +23,99 @@ public class ModelLoader : MonoBehaviour
         {
             case "Creeper":
                 {
-                    GameObject obj=Instantiate(
-                        _creeperModel,
-                        _startGameTile.transform.position,
-                        Quaternion.identity
-                        );
+                    if (name == "PLAYER1") {
+                        GameObject obj = Instantiate(
+                            _creeperModel,
+                            new Vector3(_startGameTile.transform.position.x + 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
+                            Quaternion.identity
+                            );
+                        obj.AddComponent<PlayerController>();
+                        obj.AddComponent<Rigidbody>();
+                        obj.GetComponent<Rigidbody>().useGravity = false;
+                        obj.transform.localScale =new Vector3(0.4f, 0.4f, 0.4f);
+                        obj.name = name;
+                        obj.tag = name;
+                    }
+                    else if(name == "PLAYER2")
+                    {
+                        GameObject obj = Instantiate(
+                            _creeperModel,
+                            new Vector3(_startGameTile.transform.position.x - 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
+                            Quaternion.identity
+                            );
+                        obj.AddComponent<PlayerController>();
+                        obj.AddComponent<Rigidbody>();
+                        obj.GetComponent<Rigidbody>().useGravity = false;
+                        obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                        obj.name = name;
+                        obj.tag = name;
+                    }
 
-                    obj.AddComponent<PlayerController>();
-                    obj.AddComponent<Rigidbody>();
-                    obj.GetComponent<Rigidbody>().useGravity = false;
-                    obj.name = name;
-                    obj.tag = name;
                 }
                 
                     break;
             case "ElPrimo":
                 {
-                   GameObject obj= Instantiate(
-                       _elPrimoModel,
-                       _startGameTile.transform.position,
-                       Quaternion.identity
-                       );
-
-                    obj.AddComponent<PlayerController>();
-                    obj.AddComponent<Rigidbody>();
-                    obj.GetComponent<Rigidbody>().useGravity = false;
-                    obj.name = name;
-                    obj.tag = name;
+                    if (name == "PLAYER1")
+                    {
+                        GameObject obj = Instantiate(
+                            _elPrimoModel,
+                            new Vector3(_startGameTile.transform.position.x + 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
+                            Quaternion.identity
+                            );
+                        obj.AddComponent<PlayerController>();
+                        obj.AddComponent<Rigidbody>();
+                        obj.GetComponent<Rigidbody>().useGravity = false;
+                        obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                        obj.name = name;
+                        obj.tag = name;
+                    }
+                    else if (name == "PLAYER2")
+                    {
+                        GameObject obj = Instantiate(
+                            _elPrimoModel,
+                            new Vector3(_startGameTile.transform.position.x - 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
+                            Quaternion.identity
+                            );
+                        obj.AddComponent<PlayerController>();
+                        obj.AddComponent<Rigidbody>();
+                        obj.GetComponent<Rigidbody>().useGravity = false;
+                        obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                        obj.name = name;
+                        obj.tag = name;
+                    }
                 }
                     break;
             case "StromTrooper":
                 {
-                   GameObject obj= Instantiate(
-                       _stromTrooperModel,
-                       _startGameTile.transform.position,
-                       Quaternion.identity
-                       );
-
-                    obj.AddComponent<PlayerController>();
-                    obj.AddComponent<Rigidbody>();
-                    obj.GetComponent<Rigidbody>().useGravity = false;
-                    obj.name = name;
-                    obj.tag = name;
+                    if (name == "PLAYER1")
+                    {
+                        GameObject obj = Instantiate(
+                            _stromTrooperModel,
+                            new Vector3(_startGameTile.transform.position.x + 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
+                            Quaternion.identity
+                            );
+                        obj.AddComponent<PlayerController>();
+                        obj.AddComponent<Rigidbody>();
+                        obj.GetComponent<Rigidbody>().useGravity = false;
+                        obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                        obj.name = name;
+                        obj.tag = name;
+                    }
+                    else if (name == "PLAYER2")
+                    {
+                        GameObject obj = Instantiate(
+                            _stromTrooperModel,
+                            new Vector3(_startGameTile.transform.position.x - 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
+                            Quaternion.identity
+                            );
+                        obj.AddComponent<PlayerController>();
+                        obj.AddComponent<Rigidbody>();
+                        obj.GetComponent<Rigidbody>().useGravity = false;
+                        obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                        obj.name = name;
+                        obj.tag = name;
+                    }
                 }
                     break;
         }

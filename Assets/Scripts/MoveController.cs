@@ -6,7 +6,10 @@ using DG.Tweening;
 
 public class MoveController : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _listOfPos;
+    [SerializeField] private GameObject[] _basicListOfPos = new GameObject[28];
+    private Vector3[] _listOfPos;
+    private Vector3[] _firstPlayerListOfPos = new Vector3[28];
+    private Vector3[] _secondPlayerListOfPos = new Vector3[28];
     private int _lastIndex=0;
     private int _diceNum;
     private CubeRandomizer _cr;
@@ -21,9 +24,61 @@ public class MoveController : MonoBehaviour
     public Vector3 lastCamPos = new Vector3(5.2f, 4.2f, 0f);
     public Vector3 lastCamRot = new Vector3(45, 270, 0f);
     private GameObject _player;
+    private void Start()
+    {
+        for (int i = 0; i < _basicListOfPos.Length; i++)
+        {
+            if(i>=0 && i <= 7)
+            {
+                _firstPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x, 
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z +0.2f);
+                _secondPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z - 0.2f);
+            }else if (i >= 8 && i <= 14)
+            {
+                _firstPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x + 0.2f,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z);
+                _secondPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x - 0.2f,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z);
+            }
+            else if (i >= 15 && i <= 21)
+            {
+                _firstPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z - 0.2f);
+                _secondPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z - 0.2f);
+            }
+            else if (i >= 8 && i <= 27)
+            {
+                _firstPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z-0.2f);
+                _secondPlayerListOfPos[i] = new Vector3(_basicListOfPos[i].transform.position.x,
+                                                       _basicListOfPos[i].transform.position.y,
+                                                       _basicListOfPos[i].transform.position.z+0.2f);
+            }
+        }
+    }
     public void Move(GameObject obj)
     {
+        
         _player = obj;
+        switch (_player.name)
+        {
+            case "PLAYER1":
+                _listOfPos = _firstPlayerListOfPos;
+                break;
+
+            case "PLAYER2":
+                _listOfPos = _secondPlayerListOfPos;
+                break;
+        }
         _rb = _player.GetComponent<Rigidbody>();
         _lastIndex = obj.GetComponent<PlayerController>().lastIndex;
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
@@ -47,9 +102,7 @@ public class MoveController : MonoBehaviour
             if (_diceNum + _lastIndex == 7)
             {
                 _player.transform.DOMove(
-                    new Vector3(_listOfPos[7].transform.position.x,
-                                _listOfPos[7].transform.position.y,
-                                _listOfPos[7].transform.position.z),
+                                _listOfPos[7],
                                 _diceNum)
                                 .OnComplete(() => {
                                     GetTile();
@@ -58,10 +111,9 @@ public class MoveController : MonoBehaviour
             else
             {
                 _player.transform.DOMove(
-                    new Vector3(_listOfPos[7].transform.position.x,
-                                _listOfPos[7].transform.position.y,
-                                _listOfPos[7].transform.position.z),
-                    _diceNum).OnComplete(NotDefaultMove);
+                                _listOfPos[7],
+                                _diceNum)
+                                .OnComplete(NotDefaultMove);
             }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
@@ -74,22 +126,16 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DOMove(lastCamPos, 4f);
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 14) {
-                _player.transform.DOMove(
-                    new Vector3(_listOfPos[14].transform.position.x,
-                                _listOfPos[14].transform.position.y,
-                                _listOfPos[14].transform.position.z),
-                                _diceNum)
-                                .OnComplete(() => {
-                                    GetTile();
-                                });
+                _player.transform.DOMove(_listOfPos[14],
+                                         _diceNum)
+                                         .OnComplete(() => {
+                                            GetTile();
+                                         });
             }
             else
             {
-                _player.transform.DOMove(
-                    new Vector3(_listOfPos[14].transform.position.x,
-                                _listOfPos[14].transform.position.y,
-                                _listOfPos[14].transform.position.z),
-                    _diceNum).OnComplete(NotDefaultMove);
+                _player.transform.DOMove(_listOfPos[14],
+                                         _diceNum).OnComplete(NotDefaultMove);
             }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
@@ -103,22 +149,16 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 21)
             {
-                _player.transform.DOMove(
-                new Vector3(_listOfPos[21].transform.position.x,
-                            _listOfPos[21].transform.position.y,
-                            _listOfPos[21].transform.position.z),
-                            _diceNum)
-                            .OnComplete(() => {
-                                GetTile();
-                            });
+                _player.transform.DOMove(_listOfPos[21],
+                                         _diceNum)
+                                         .OnComplete(() => {
+                                            GetTile();
+                                         });
             }
             else
             {
-                _player.transform.DOMove(
-                new Vector3(_listOfPos[21].transform.position.x,
-                            _listOfPos[21].transform.position.y,
-                            _listOfPos[21].transform.position.z),
-                _diceNum).OnComplete(NotDefaultMove);
+                _player.transform.DOMove(_listOfPos[21],
+                                         _diceNum).OnComplete(NotDefaultMove);
             }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
@@ -132,22 +172,16 @@ public class MoveController : MonoBehaviour
             _mainCamera.transform.DORotate(lastCamRot, 4f);
             if (_diceNum + _lastIndex == 28)
             {
-                _player.transform.DOMove(
-                new Vector3(_listOfPos[0].transform.position.x,
-                            _listOfPos[0].transform.position.y,
-                            _listOfPos[0].transform.position.z),
-                            _diceNum)
-                            .OnComplete(() => {
-                                GetTile();
-                            });
+                _player.transform.DOMove(_listOfPos[0],
+                                         _diceNum)
+                                         .OnComplete(() => {
+                                            GetTile();
+                                         });
             }
             else
             {
-                _player.transform.DOMove(
-                new Vector3(_listOfPos[0].transform.position.x,
-                            _listOfPos[0].transform.position.y,
-                            _listOfPos[0].transform.position.z),
-                _diceNum).OnComplete(NotDefaultMove);
+                _player.transform.DOMove(_listOfPos[0],
+                                         _diceNum).OnComplete(NotDefaultMove);
             }
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
@@ -163,63 +197,48 @@ public class MoveController : MonoBehaviour
     {
         if (_diceNum + _lastIndex == 28)
         {
-            _player.transform.DOMove(
-                new Vector3(_listOfPos[0].transform.position.x,
-                            _listOfPos[0].transform.position.y,
-                            _listOfPos[0].transform.position.z),
-                            _diceNum * 1f)
-                            .OnComplete(() => {
-                                GetTile();
-                            });
+            _player.transform.DOMove(_listOfPos[0],
+                                     _diceNum * 1f)
+                                     .OnComplete(() => {
+                                         GetTile();
+                                     });
             _lastIndex = 0;
         }else if (_diceNum+_lastIndex>28)
         {
 
-            _player.transform.DOMove(
-                new Vector3(_listOfPos[_diceNum + _lastIndex-28].transform.position.x,
-                            _listOfPos[_diceNum + _lastIndex-28].transform.position.y,
-                            _listOfPos[_diceNum + _lastIndex-28].transform.position.z),
-                            _diceNum * 1f)
-                            .OnComplete(() => {
-                                 GetTile();
-                            });
+            _player.transform.DOMove(_listOfPos[_diceNum + _lastIndex - 28],
+                                     _diceNum * 1f)
+                                     .OnComplete(() => {
+                                         GetTile();
+                                     });
         }
         else
         {
-            _player.transform.DOMove(
-                new Vector3(_listOfPos[_diceNum + _lastIndex].transform.position.x,
-                            _listOfPos[_diceNum + _lastIndex].transform.position.y,
-                            _listOfPos[_diceNum + _lastIndex].transform.position.z),
-                            _diceNum * 1f)
-                            .OnComplete(() => {
-                                GetTile();
-                            });
+            _player.transform.DOMove(_listOfPos[_diceNum + _lastIndex],
+                                     _diceNum * 1f)
+                                     .OnComplete(() => {
+                                         GetTile();
+                                     });
         }
     }
     private void NotDefaultMove()
     {
         if(_diceNum + _lastIndex -_diceNum > 28)
         {
-            _player.transform.DOMove(
-            new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.x,
-                        _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.y,
-                        _listOfPos[_diceNum + _lastIndex - _diceNum - 28].transform.position.z),
-                        _diceNum * 1f)
-                        .OnComplete(() => {
-                            GetTile(); 
-                        });
+            _player.transform.DOMove(_listOfPos[_diceNum + _lastIndex - _diceNum - 28],
+                                     _diceNum * 1f)
+                                     .OnComplete(() => {
+                                         GetTile(); 
+                                     });
             _lastIndex -= 28;
         }
         else
         {
-            _player.transform.DOMove(
-            new Vector3(_listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.x,
-                        _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.y,
-                        _listOfPos[_diceNum + _lastIndex - _diceNum].transform.position.z),
-                        _diceNum * 1f)
-                        .OnComplete(() => {
-                            GetTile();
-                        });
+            _player.transform.DOMove(_listOfPos[_diceNum + _lastIndex - _diceNum],
+                                     _diceNum * 1f)
+                                     .OnComplete(() => {
+                                         GetTile();
+                                     });
         }
     }
     private void GetTile()

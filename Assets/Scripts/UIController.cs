@@ -47,7 +47,6 @@ public class UIController : MonoBehaviour
     }
     public void CallPanel(GameObject obj)
     {
-        print(obj.name);
         infoPanel.SetActive(true);
         img.sprite = obj.GetComponent<TileManager>()._sprite;
         nameText.text = obj.GetComponent<TileManager>()._name;
