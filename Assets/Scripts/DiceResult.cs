@@ -32,6 +32,8 @@ public class DiceResult : MonoBehaviour
     
     void OnTriggerStay(Collider col)
     {
+     //   col.GetComponent<AudioSource>().clip = col.GetComponent<CubeRandomizer>()?.dice;
+     //   col.GetComponent<AudioSource>().Play();
         if (_diceVel.x == 0f && _diceVel.y == 0f && _diceVel.z == 0f && readNum==0)
         {
             switch (col.gameObject.name)

@@ -4,6 +4,10 @@ using UnityEngine;
 using DG.Tweening;
 public class CubeRandomizer : MonoBehaviour
 {
+    [SerializeField] private AudioClip _whoosh;
+    public AudioClip dice;
+    public AudioSource audioSource;
+
     public Rigidbody rb;
     public static Vector3 diceVel;
     private Vector3 _startPos;
@@ -13,6 +17,7 @@ public class CubeRandomizer : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         canBeRolled = true;
         _dr = GameObject.Find("Checker").GetComponent<DiceResult>();
         _startPos = transform.position;
@@ -25,6 +30,9 @@ public class CubeRandomizer : MonoBehaviour
     {
         if (!canBeRolled) return;
         player = obj;
+        audioSource.clip = _whoosh;
+        audioSource.pitch = Random.Range(0.85f, 1.1f);
+        audioSource.Play();
         transform.position = _startPos;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;

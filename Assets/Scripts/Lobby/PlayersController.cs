@@ -17,7 +17,7 @@ public class PlayersController : MonoBehaviour
         _pickText.gameObject.SetActive(false);
         GetComponent<PickCharController>().enabled = false;
         foreach(var pText in _playersText)
-            pText.gameObject.SetActive(false);
+            pText.transform.parent.gameObject.SetActive(false);
     }
 
     public void StartPicking(Players player)
@@ -26,7 +26,7 @@ public class PlayersController : MonoBehaviour
     }
     public void PickPlayer(string charName)
     {
-            _playersText[counter].gameObject.SetActive(true);
+            _playersText[counter].transform.parent.gameObject.SetActive(true);
             _playersText[counter].text = $"Гравець {counter + 1} обрав {charName}";
             PlayerPrefs.SetString($"PLAYER{counter + 1}", charName);
             counter++;

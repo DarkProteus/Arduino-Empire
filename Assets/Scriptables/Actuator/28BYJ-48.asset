@@ -15,6 +15,6 @@ MonoBehaviour:
   nameOfTile: 28BYJ-48
   descOfTile: A stepper motor for accurate rotation control.
   typeOfTile: Actuator
-  spriteOfTile: {fileID: 21300000, guid: fd4380dc8dba9ac4b933fa099d583e8d, type: 3}
+  spriteOfTile: {fileID: 21300000, guid: f9ed4e1ed1d234104b2546b66df3ccab, type: 3}
   priceOfTile: 100
   alreadyBought: 0

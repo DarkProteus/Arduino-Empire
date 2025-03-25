@@ -15,6 +15,6 @@ MonoBehaviour:
   nameOfTile: Jumper Wires
   descOfTile: A set of connecting wires for easy circuit assembly.
   typeOfTile: Accessory
-  spriteOfTile: {fileID: 21300000, guid: eef295563b240774f8980d09df73091e, type: 3}
+  spriteOfTile: {fileID: 21300000, guid: 3c594b0921ccc44ad8b26e52378e8722, type: 3}
   priceOfTile: 150
   alreadyBought: 0

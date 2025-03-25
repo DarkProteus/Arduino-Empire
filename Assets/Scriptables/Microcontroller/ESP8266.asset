@@ -15,6 +15,6 @@ MonoBehaviour:
   nameOfTile: ESP8266
   descOfTile: A Wi-Fi-enabled microcontroller for IoT applications.
   typeOfTile: Microcontroller
-  spriteOfTile: {fileID: 21300000, guid: e11ff018700a33340b7a9cdacdfde9d5, type: 3}
+  spriteOfTile: {fileID: 21300000, guid: ff5c54c5d77ed4361ba4cb2200a34c44, type: 3}
   priceOfTile: 1200
   alreadyBought: 0

@@ -15,6 +15,6 @@ MonoBehaviour:
   nameOfTile: HC-SR04
   descOfTile: An ultrasonic sensor for measuring distance.
   typeOfTile: Sensor
-  spriteOfTile: {fileID: 21300000, guid: 73766809ef1bf954c98775dc7d02eb31, type: 3}
+  spriteOfTile: {fileID: 21300000, guid: 16e018357c47d41568cf04c8c96e2bc4, type: 3}
   priceOfTile: 300
   alreadyBought: 0
