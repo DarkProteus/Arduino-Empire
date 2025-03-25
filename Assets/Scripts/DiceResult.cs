@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
-
+using System.Collections.Generic;
+using System.Collections;
 public class DiceResult : MonoBehaviour
 {
     private Vector3 _diceVel;
@@ -15,6 +16,7 @@ public class DiceResult : MonoBehaviour
     private MoveController _mc;
     private Vector3 _lastCamPos;
     private Vector3 _lastCamRot;
+    private HashSet<Collider> _triggeredObjects = new HashSet<Collider>();
     private void Start()
     {
         dice = GameObject.Find("Dice");
@@ -32,8 +34,18 @@ public class DiceResult : MonoBehaviour
     
     void OnTriggerStay(Collider col)
     {
-     //   col.GetComponent<AudioSource>().clip = col.GetComponent<CubeRandomizer>()?.dice;
-     //   col.GetComponent<AudioSource>().Play();
+        if (!_triggeredObjects.Contains(col))
+        {
+            _triggeredObjects.Add(col);
+            
+            AudioSource audioSource = col.transform.parent.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+                audioSource.clip = col.transform.parent.GetComponent<CubeRandomizer>()?.dice;
+                audioSource.Play();
+            }
+        }
         if (_diceVel.x == 0f && _diceVel.y == 0f && _diceVel.z == 0f && readNum==0)
         {
             switch (col.gameObject.name)
@@ -61,6 +73,16 @@ public class DiceResult : MonoBehaviour
             _cr.canBeRolled = true;
             Dice();
         }
+    }
+    void OnTriggerExit(Collider col)
+    {
+        StartCoroutine(StopRollingMusic(col));
+    }
+
+    private IEnumerator StopRollingMusic(Collider col)
+    {
+        yield return new WaitForSeconds(1f);
+        _triggeredObjects.Remove(col);
     }
     private void Dice()
     {
