@@ -81,7 +81,7 @@ public class DiceResult : MonoBehaviour
 
     private IEnumerator StopRollingMusic(Collider col)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         _triggeredObjects.Remove(col);
     }
     private void Dice()
