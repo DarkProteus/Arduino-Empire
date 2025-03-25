@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private PlayerController[] _players;
+    [SerializeField] public PlayerController[] _players;
     [SerializeField] private int playersBalance;
     private GameObject _curPlayer;
     private void Start()
@@ -52,6 +52,6 @@ public class GameController : MonoBehaviour
 
         
         _curPlayer = _players[_currentPlayerIndex].gameObject;
-        print(_curPlayer.name);
+        print($"Player: {_curPlayer.name}, Balance: {_curPlayer.GetComponent<PlayerController>().playerBalance}");
     }
 }

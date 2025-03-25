@@ -8,25 +8,27 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField]private Tile tile;
     private TMP_Text _text;
-    public string _name;
-    public Sprite _sprite;
-    public string _desc;
-    public int _price;
-    public string _type;
-    public bool _alreadyBought;
+    public string name;
+    public string owner;
+    public Sprite sprite;
+    public string desc;
+    public int price;
+    public string type;
+    public bool alreadyBought;
     void Start()
     {
-        _name = tile.nameOfTile;
-        _desc = tile.descOfTile;
-        _price = tile.priceOfTile;
-        _type = tile.typeOfTile;
-        _alreadyBought = tile.alreadyBought;
-        _sprite = tile.spriteOfTile;
-        if (_type != "Event")
+        name = tile.nameOfTile;
+        owner = tile.ownerOfTile;
+        desc = tile.descOfTile;
+        price = tile.priceOfTile;
+        type = tile.typeOfTile;
+        alreadyBought = tile.alreadyBought;
+        sprite = tile.spriteOfTile;
+        if (type != "Event")
         {
             _text = gameObject.GetComponentInChildren<TMP_Text>(true);
             _text.gameObject.SetActive(true);
-            _text.text = _name;
+            _text.text = name;
         }
     }
 

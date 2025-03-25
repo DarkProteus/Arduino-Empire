@@ -13,4 +13,5 @@ public class Tile : ScriptableObject
     public Sprite spriteOfTile;
     public int priceOfTile;
     public bool alreadyBought;
+    public string ownerOfTile="None";
 }
