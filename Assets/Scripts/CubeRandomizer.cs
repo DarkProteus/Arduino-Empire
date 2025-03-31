@@ -30,9 +30,6 @@ public class CubeRandomizer : MonoBehaviour
     {
         if (!canBeRolled) return;
         player = obj;
-        audioSource.clip = _whoosh;
-        audioSource.pitch = Random.Range(0.85f, 1.1f);
-        audioSource.Play();
         transform.position = _startPos;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;

@@ -34,20 +34,21 @@ public class DiceResult : MonoBehaviour
     
     void OnTriggerStay(Collider col)
     {
-        if (!_triggeredObjects.Contains(col))
-        {
-            _triggeredObjects.Add(col);
-            
-            AudioSource audioSource = col.transform.parent.GetComponent<AudioSource>();
-            if (audioSource != null)
-            {
-                audioSource.Stop();
-                audioSource.clip = col.transform.parent.GetComponent<CubeRandomizer>()?.dice;
-                audioSource.Play();
-            }
-        }
+        
         if (_diceVel.x == 0f && _diceVel.y == 0f && _diceVel.z == 0f && readNum==0)
         {
+            if (!_triggeredObjects.Contains(col))
+            {
+                _triggeredObjects.Add(col);
+
+                AudioSource audioSource = col.transform.parent.GetComponent<AudioSource>();
+                if (audioSource != null)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = col.transform.parent.GetComponent<CubeRandomizer>()?.dice;
+                    audioSource.Play();
+                }
+            }
             switch (col.gameObject.name)
             {
                 case "1":

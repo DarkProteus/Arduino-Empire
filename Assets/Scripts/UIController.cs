@@ -50,6 +50,8 @@ public class UIController : MonoBehaviour
     }
     public void CallPanel(GameObject obj)
     {
+        sellButton.gameObject.SetActive(true);
+        buyButton.gameObject.SetActive(true);
         changesMade = 0;
         infoPanel.SetActive(true);
         TileManager tm = obj.GetComponent<TileManager>();
@@ -61,8 +63,9 @@ public class UIController : MonoBehaviour
         alreadyBought = tm.alreadyBought;
         ownerText.text =
             alreadyBought ?
-            $"Власність гравця {int.Parse(tm.owner)}" :
+            $"Власність гравця {(tm.owner == "PLAYER1" ? 1 : 2)}" :
             "Нічия власність";
+        print(alreadyBought ? $"Власність гравця {(tm.owner == "PLAYER1" ? 1 : 2)}" : "Нічия власність");
         if (alreadyBought)
         {
             infoPanel.GetComponent<Image>().material.color = Color.red;
@@ -76,8 +79,16 @@ public class UIController : MonoBehaviour
             buyButton.interactable = true;
         }
 
-        foreach(PlayerController pc in FindObjectsOfType<PlayerController>())
+        
+    }
+    public void ClosePanel()
+    {
+        infoPanel.SetActive(false);
+        infoText.gameObject.SetActive(false);
+        GameController.isReadyToRoll = true; 
+        foreach (PlayerController pc in gc._players)
         {
+            print($"Turn {pc.gameObject.name}: {pc.isPlayerNextTurn}");
             if (pc.isPlayerNextTurn)
             {
                 FindObjectOfType<GameController>().
@@ -85,12 +96,6 @@ public class UIController : MonoBehaviour
                     gameObject.SetActive(true);
             }
         }
-    }
-    public void ClosePanel()
-    {
-        infoPanel.SetActive(false);
-        infoText.gameObject.SetActive(false);
-        GameController.isReadyToRoll = true;
     }
     public void BuyTile()
     {
@@ -105,18 +110,20 @@ public class UIController : MonoBehaviour
                 {
                     obj.GetComponent<PlayerController>().playerBalance -= hit.transform.gameObject.GetComponent<TileManager>().price;
                     hit.transform.gameObject.GetComponent<TileManager>().owner = obj.name;
+                    hit.transform.gameObject.GetComponent<TileManager>().alreadyBought = true;
                     infoText.gameObject.SetActive(true);
                     infoText.text = $"Придбана нова власність";
+                    print($"{obj.name}:  {obj.GetComponent<PlayerController>().playerBalance}");
+                    print($"{hit.transform.gameObject.name}:  {hit.transform.gameObject.GetComponent<TileManager>().price}");
+                    sellButton.interactable = true;
+                    buyButton.interactable = false;
+                    changesMade++;
                 }
                 else
                 {
                     infoText.gameObject.SetActive(true);
                     infoText.text = $"Недостатній баланс";
                 }
-                sellButton.interactable = true;
-                buyButton.interactable = false;
-                print(obj.GetComponent<PlayerController>().playerBalance);
-                changesMade++;
             }
         }
     }
@@ -132,6 +139,7 @@ public class UIController : MonoBehaviour
                 Physics.Raycast(obj.transform.position, downDirection, out hit, Mathf.Infinity);
                 obj.GetComponent<PlayerController>().playerBalance += hit.transform.gameObject.GetComponent<TileManager>().price;
                 hit.transform.gameObject.GetComponent<TileManager>().owner = "None";
+                hit.transform.gameObject.GetComponent<TileManager>().alreadyBought = false;
                 sellButton.interactable = false;
                 buyButton.interactable = true;
                 print(obj.GetComponent<PlayerController>().playerBalance);

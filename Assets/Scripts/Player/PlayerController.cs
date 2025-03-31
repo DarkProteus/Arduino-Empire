@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool isPlayerNextTurn = false;
+    public bool isPlayerNextTurn;
     public int lastIndex;
+    private int _playerInt;
     public int playerBalance;
     private Rigidbody _rb;
     private GameObject curTile;
     private void Start()
     {
+        _playerInt = (int)Players.PLAYER1;
         _rb = GetComponent<Rigidbody>();
-        if (gameObject.tag == Players.PLAYER1.ToString())
+        if (gameObject.tag ==_playerInt.ToString())
+        {
             isPlayerNextTurn = true;
+            print($"TurnSet: {gameObject.name}");
+        }
     }
 
  

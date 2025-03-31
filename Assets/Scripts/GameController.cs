@@ -11,15 +11,18 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text[] _balanceText;
     [SerializeField] private TMP_Text rollInfoText;
     [SerializeField] public Button[] playersFinishTurn;
+    private bool _lastTurnFinished;
     private GameObject _curPlayer;
     public static bool isReadyToRoll = true;
     private void Start()
     {
+        _lastTurnFinished = true;
         FindObjectOfType<ModelLoader>().LoadModels(Players.PLAYER1.ToString());
         FindObjectOfType<ModelLoader>().LoadModels(Players.PLAYER2.ToString());
 
         _players = FindObjectsOfType<PlayerController>();
-        for(int i=0; i<_players.Length;i++)
+        _players = _players.OrderByDescending(p => p.name == "PLAYER1").ToArray();
+        for (int i=0; i<_players.Length;i++)
         {
             _players[i].playerBalance = _playersBalance;
             _balanceText[i].text = _playersBalance.ToString();
@@ -45,9 +48,11 @@ public class GameController : MonoBehaviour
 
         if (isReadyToRoll)
         {
-            TextRollController(); //??????
-            if (Input.GetKeyDown(KeyCode.Space))
+            TextRollController(); 
+            if (Input.GetKeyDown(KeyCode.Space)&& _lastTurnFinished==true)
             {
+                _lastTurnFinished = false;
+                print(_curPlayer); 
                 FindObjectOfType<CubeRandomizer>()
                     .GetComponent<CubeRandomizer>()
                     .RollDice(_curPlayer);
@@ -63,7 +68,7 @@ public class GameController : MonoBehaviour
     private void TextRollController()
     {
         rollInfoText.gameObject.SetActive(true);
-        rollInfoText.text = $"Гравець {int.Parse(_curPlayer.tag)} кидає кубик";
+        rollInfoText.text = $"Гравець {int.Parse(_curPlayer.tag)+1} кидає кубик";
     }
 
     private void UpdatePlayerBalance()
@@ -79,7 +84,9 @@ public class GameController : MonoBehaviour
         isReadyToRoll = true;
         _players[index].isPlayerNextTurn = false;
         _players[index == 1 ? 0 : 1].isPlayerNextTurn = true;
+        _curPlayer = _players[index == 1 ? 0 : 1].gameObject;
         playersFinishTurn[index].gameObject.SetActive(false);
+        _lastTurnFinished = true;
     }
 }
 
