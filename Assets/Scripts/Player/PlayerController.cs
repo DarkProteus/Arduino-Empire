@@ -16,18 +16,7 @@ public class PlayerController : MonoBehaviour
             isPlayerNextTurn = true;
     }
 
-    public void PlayerTurn()
-    {
-        RaycastHit hit;
-        if(_rb.velocity.magnitude == 0)
-        {
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
-            {
-                print(hit.collider.name);
-                //next actions              
-            }
-        }
-    }
+ 
 
     public int Buy(Tile tile)
     {
@@ -42,3 +31,23 @@ public class PlayerController : MonoBehaviour
         return 0;
     }
 }
+
+
+
+
+
+
+
+
+//public void PlayerTurn()
+//{
+//    RaycastHit hit;
+//    if (_rb.velocity.magnitude == 0)
+//    {
+//        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+//        {
+//            print(hit.collider.name);
+//            //next actions              
+//        }
+//    }
+//}

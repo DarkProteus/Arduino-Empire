@@ -9,6 +9,9 @@ TagManager:
   - PLAYER2
   - Tile
   - Position
+  - 1
+  - 2
+  - 0
   layers:
   - Default
   - TransparentFX

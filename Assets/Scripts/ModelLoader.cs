@@ -16,14 +16,13 @@ public class ModelLoader : MonoBehaviour
     public string LoadModels(string name)
     {
         string loadedName = PlayerPrefs.GetString(name);
-        print($"{name},{loadedName}");
         if (string.IsNullOrEmpty(loadedName)) return "Error";
 
         switch (loadedName)
         {
             case "Creeper":
                 {
-                    if (name == "PLAYER1") {
+                    if (name == Players.PLAYER1.ToString()) {
                         GameObject obj = Instantiate(
                             _creeperModel,
                             new Vector3(_startGameTile.transform.position.x + 0.3f, _startGameTile.transform.position.y, _startGameTile.transform.position.z),
@@ -34,9 +33,9 @@ public class ModelLoader : MonoBehaviour
                         obj.GetComponent<Rigidbody>().useGravity = false;
                         obj.transform.localScale =new Vector3(0.4f, 0.4f, 0.4f);
                         obj.name = name;
-                        obj.tag = name;
+                        obj.tag = ((int)Players.PLAYER1).ToString(); ;
                     }
-                    else if(name == "PLAYER2")
+                    else if(name == Players.PLAYER2.ToString())
                     {
                         GameObject obj = Instantiate(
                             _creeperModel,
@@ -48,7 +47,7 @@ public class ModelLoader : MonoBehaviour
                         obj.GetComponent<Rigidbody>().useGravity = false;
                         obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                         obj.name = name;
-                        obj.tag = name;
+                        obj.tag = ((int)Players.PLAYER2).ToString(); ;
                     }
 
                 }
@@ -56,7 +55,7 @@ public class ModelLoader : MonoBehaviour
                     break;
             case "ElPrimo":
                 {
-                    if (name == "PLAYER1")
+                    if (name == Players.PLAYER1.ToString())
                     {
                         GameObject obj = Instantiate(
                             _elPrimoModel,
@@ -68,9 +67,9 @@ public class ModelLoader : MonoBehaviour
                         obj.GetComponent<Rigidbody>().useGravity = false;
                         obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                         obj.name = name;
-                        obj.tag = name;
+                        obj.tag = ((int)Players.PLAYER1).ToString(); ;
                     }
-                    else if (name == "PLAYER2")
+                    else if (name == Players.PLAYER2.ToString())
                     {
                         GameObject obj = Instantiate(
                             _elPrimoModel,
@@ -82,13 +81,13 @@ public class ModelLoader : MonoBehaviour
                         obj.GetComponent<Rigidbody>().useGravity = false;
                         obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                         obj.name = name;
-                        obj.tag = name;
+                        obj.tag = ((int)Players.PLAYER2).ToString(); ;
                     }
                 }
                     break;
             case "StromTrooper":
                 {
-                    if (name == "PLAYER1")
+                    if (name == Players.PLAYER1.ToString())
                     {
                         GameObject obj = Instantiate(
                             _stromTrooperModel,
@@ -100,9 +99,9 @@ public class ModelLoader : MonoBehaviour
                         obj.GetComponent<Rigidbody>().useGravity = false;
                         obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                         obj.name = name;
-                        obj.tag = name;
+                        obj.tag = ((int)Players.PLAYER1).ToString(); ;
                     }
-                    else if (name == "PLAYER2")
+                    else if (name == Players.PLAYER2.ToString())
                     {
                         GameObject obj = Instantiate(
                             _stromTrooperModel,
@@ -114,7 +113,7 @@ public class ModelLoader : MonoBehaviour
                         obj.GetComponent<Rigidbody>().useGravity = false;
                         obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                         obj.name = name;
-                        obj.tag = name;
+                        obj.tag = ((int)Players.PLAYER2).ToString();
                     }
                 }
                     break;
