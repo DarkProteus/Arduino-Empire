@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
         if (isReadyToRoll)
         {
             TextRollController(); 
-            if (Input.GetKeyDown(KeyCode.Space)&& _lastTurnFinished==true)
+            if (Input.GetKeyDown(KeyCode.Tab)&& _lastTurnFinished==true)
             {
                 _lastTurnFinished = false;
                 print(_curPlayer); 

@@ -88,7 +88,6 @@ public class UIController : MonoBehaviour
         GameController.isReadyToRoll = true; 
         foreach (PlayerController pc in gc._players)
         {
-            print($"Turn {pc.gameObject.name}: {pc.isPlayerNextTurn}");
             if (pc.isPlayerNextTurn)
             {
                 FindObjectOfType<GameController>().

@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class MoveController : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _basicListOfPos = new GameObject[28];
+    [SerializeField] private GameObject[] _basicListOfPos = new GameObject[28]; 
+    [SerializeField] private TMP_InputField inputField;
     private Vector3[] _listOfPos;
     private Vector3[] _firstPlayerListOfPos = new Vector3[28];
     private Vector3[] _secondPlayerListOfPos = new Vector3[28];
@@ -24,8 +26,14 @@ public class MoveController : MonoBehaviour
     public Vector3 lastCamPos = new Vector3(5.2f, 4.2f, 0f);
     public Vector3 lastCamRot = new Vector3(45, 270, 0f);
     private GameObject _player;
+    private PlayerController[] _players;
+    private PlayerController _pc;
+    
     private void Start()
     {
+        inputField.onEndEdit.AddListener(ExecuteCommand);
+        inputField.ActivateInputField();
+        inputField.gameObject.SetActive(false);
         for (int i = 0; i < _basicListOfPos.Length; i++)
         {
             if(i>=0 && i <= 7)
@@ -65,10 +73,49 @@ public class MoveController : MonoBehaviour
             }
         }
     }
+    private void ExecuteCommand(string temp)
+    {
+        string[] parts = temp.Split(' '); // Разделяем строку на части
+
+        if (parts.Length > 1 && parts[0] == "Move") // Проверяем команду
+        {
+            if (int.TryParse(parts[1], out int tileNum)) // Пробуем преобразовать в число
+            {
+                _players = FindObjectsOfType<PlayerController>();
+                foreach (PlayerController pl in _players)
+                {
+                    if (pl.isPlayerNextTurn)
+                    {
+                        _player = pl.gameObject;
+                        switch (_player.name)
+                        {
+                            case "PLAYER1":
+                                _listOfPos = _firstPlayerListOfPos;
+                                break;
+
+                            case "PLAYER2":
+                                _listOfPos = _secondPlayerListOfPos;
+                                break;
+                        }
+                        _player.transform.position = _listOfPos[tileNum];
+                        _lastIndex = tileNum;
+                        _player.GetComponent<PlayerController>().lastIndex = _lastIndex;
+                        inputField.gameObject.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("Ошибка: укажите число! Например: Move 10 (0-27)");
+            }
+        }
+
+    }
     public void Move(GameObject obj)
     {
         
         _player = obj;
+        _pc = obj.GetComponent<PlayerController>();
         switch (_player.name)
         {
             case "PLAYER1":
@@ -183,6 +230,7 @@ public class MoveController : MonoBehaviour
                 _player.transform.DOMove(_listOfPos[0],
                                          _diceNum).OnComplete(NotDefaultMove);
             }
+            _pc.playerBalance += 200;
             print($"A Last Index:{_lastIndex} Dice Number: {_diceNum}");
         }
         else
