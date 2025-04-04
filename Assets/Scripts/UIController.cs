@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameController gc;
     [SerializeField] private TMP_Text infoText;
     private bool alreadyBought;
+    private string _curPlayer;
     private int changesMade;
     void Update()
     {
@@ -34,6 +35,7 @@ public class UIController : MonoBehaviour
                 }
             }
         }
+        _curPlayer = gc.curPlayer.name;
     }
     private void CallPanelInfo(GameObject obj)
     {
@@ -68,9 +70,17 @@ public class UIController : MonoBehaviour
         print(alreadyBought ? $"Власність гравця {(tm.owner == "PLAYER1" ? 1 : 2)}" : "Нічия власність");
         if (alreadyBought)
         {
-            infoPanel.GetComponent<Image>().material.color = Color.red;
-            sellButton.interactable = true;
-            buyButton.interactable = false;
+            if (tm.owner == _curPlayer)
+            {
+                infoPanel.GetComponent<Image>().material.color = Color.red;
+                sellButton.interactable = true;
+                buyButton.interactable = false;
+            }
+            else
+            {
+                sellButton.interactable = false;
+                buyButton.interactable = false;
+            }
         }
         else
         {

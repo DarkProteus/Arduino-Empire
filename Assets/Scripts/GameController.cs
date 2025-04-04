@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text rollInfoText;
     [SerializeField] public Button[] playersFinishTurn;
     private bool _lastTurnFinished;
-    private GameObject _curPlayer;
+    public GameObject curPlayer;
     public static bool isReadyToRoll = true;
     private void Start()
     {
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
             _players[i].playerBalance = _playersBalance;
             _balanceText[i].text = _playersBalance.ToString();
         }
-        _curPlayer = _players[0].gameObject;
+        curPlayer = _players[0].gameObject;
         rollInfoText.gameObject.SetActive(false);
 
         playersFinishTurn[0].onClick.AddListener(() =>
@@ -52,10 +52,10 @@ public class GameController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab)&& _lastTurnFinished==true)
             {
                 _lastTurnFinished = false;
-                print(_curPlayer); 
+                print(curPlayer); 
                 FindObjectOfType<CubeRandomizer>()
                     .GetComponent<CubeRandomizer>()
-                    .RollDice(_curPlayer);
+                    .RollDice(curPlayer);
             }
         }
         else
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
     private void TextRollController()
     {
         rollInfoText.gameObject.SetActive(true);
-        rollInfoText.text = $"Гравець {int.Parse(_curPlayer.tag)+1} кидає кубик";
+        rollInfoText.text = $"Гравець {int.Parse(curPlayer.tag)+1} кидає кубик";
     }
 
     private void UpdatePlayerBalance()
@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
         isReadyToRoll = true;
         _players[index].isPlayerNextTurn = false;
         _players[index == 1 ? 0 : 1].isPlayerNextTurn = true;
-        _curPlayer = _players[index == 1 ? 0 : 1].gameObject;
+        curPlayer = _players[index == 1 ? 0 : 1].gameObject;
         playersFinishTurn[index].gameObject.SetActive(false);
         _lastTurnFinished = true;
     }
@@ -104,6 +104,6 @@ public class GameController : MonoBehaviour
 //    _players[_currentPlayerIndex].isPlayerNextTurn = true;
 
 
-//    _curPlayer = _players[_currentPlayerIndex].gameObject;
-//    //print($"Player: {_curPlayer.name}, Balance: {_curPlayer.GetComponent<PlayerController>().playerBalance}");
+//    curPlayer = _players[_currentPlayerIndex].gameObject;
+//    //print($"Player: {curPlayer.name}, Balance: {curPlayer.GetComponent<PlayerController>().playerBalance}");
 //}
