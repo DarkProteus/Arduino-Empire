@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button buyButton;
     [SerializeField] private GameController gc;
     [SerializeField] private TMP_Text infoText;
+    [SerializeField] private MoveController _mc;
     private bool alreadyBought;
     private string _curPlayer;
     private int changesMade;
@@ -32,6 +33,18 @@ public class UIController : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent<TileManager>( out TileManager isExist))
                 {
                     CallPanelInfo(hit.collider.gameObject);
+                }
+            }
+        }else if (Input.GetMouseButtonDown(0) && _mc.devCheck)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.TryGetComponent<TileManager>(out TileManager isExist))
+                {
+                    CallPanel(hit.collider.gameObject);
                 }
             }
         }

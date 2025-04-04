@@ -28,9 +28,11 @@ public class MoveController : MonoBehaviour
     private GameObject _player;
     private PlayerController[] _players;
     private PlayerController _pc;
+    public bool devCheck;
     
     private void Start()
     {
+        devCheck = false;
         inputField.onEndEdit.AddListener(ExecuteCommand);
         inputField.ActivateInputField();
         inputField.gameObject.SetActive(false);
@@ -97,6 +99,7 @@ public class MoveController : MonoBehaviour
                                 _listOfPos = _secondPlayerListOfPos;
                                 break;
                         }
+                        devCheck = true;
                         _player.transform.position = _listOfPos[tileNum];
                         _lastIndex = tileNum;
                         _player.GetComponent<PlayerController>().lastIndex = _lastIndex;

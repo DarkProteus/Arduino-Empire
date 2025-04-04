@@ -1644,6 +1644,7 @@ MonoBehaviour:
   _fourthPos: {fileID: 58214148}
   lastCamPos: {x: 5.2, y: 4.2, z: 0}
   lastCamRot: {x: 45, y: 270, z: 0}
+  devCheck: 0
 --- !u!114 &239396274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1667,6 +1668,7 @@ MonoBehaviour:
   buyButton: {fileID: 1068843301}
   gc: {fileID: 239396272}
   infoText: {fileID: 1537158006}
+  _mc: {fileID: 239396273}
 --- !u!1 &277923859
 GameObject:
   m_ObjectHideFlags: 0
