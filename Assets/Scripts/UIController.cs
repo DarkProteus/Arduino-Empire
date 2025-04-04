@@ -80,6 +80,7 @@ public class UIController : MonoBehaviour
             {
                 sellButton.interactable = false;
                 buyButton.interactable = false;
+                gc.curPlayer.gameObject.GetComponent<PlayerController>().playerBalance -= (int)tm.price / 10;
             }
         }
         else
