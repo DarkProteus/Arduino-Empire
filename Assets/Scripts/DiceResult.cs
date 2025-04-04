@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 public class DiceResult : MonoBehaviour
 {
+    private Rigidbody rb;
     private Vector3 _diceVel;
     public int _diceNum;
     public int readNum;
@@ -32,7 +33,7 @@ public class DiceResult : MonoBehaviour
         _lastCamRot = _mc.lastCamRot;
     }
     
-    void OnTriggerStay(Collider col)
+    private void OnTriggerStay(Collider col)
     {
         
         if (_diceVel.x == 0f && _diceVel.y == 0f && _diceVel.z == 0f && readNum==0)
@@ -75,7 +76,7 @@ public class DiceResult : MonoBehaviour
             Dice();
         }
     }
-    void OnTriggerExit(Collider col)
+    private void OnTriggerExit(Collider col)
     {
         StartCoroutine(StopRollingMusic(col));
     }
