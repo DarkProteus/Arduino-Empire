@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A dot matrix display for animations and text.
   typeOfTile: Display
   spriteOfTile: {fileID: 21300000, guid: d8a5acb194557494ab9a84655a35fe79, type: 3}
-  priceOfTile: 800
+  priceOfTile: 250
   alreadyBought: 0
+  ownerOfTile: None

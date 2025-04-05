@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A prototyping board for assembling circuits.
   typeOfTile: Accessory
   spriteOfTile: {fileID: 21300000, guid: 319ed57e117b04b06be399b186166e9e, type: 3}
-  priceOfTile: 100
+  priceOfTile: 120
   alreadyBought: 0
+  ownerOfTile: None

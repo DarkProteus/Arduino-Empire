@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A module to control high-voltage devices.
   typeOfTile: Actuator
   spriteOfTile: {fileID: 21300000, guid: c9911fadacb3748bcac08c008170eb5e, type: 3}
-  priceOfTile: 200
+  priceOfTile: 130
   alreadyBought: 0
+  ownerOfTile: None

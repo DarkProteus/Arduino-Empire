@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A module for stabilizing voltage levels.
   typeOfTile: PowerSource
   spriteOfTile: {fileID: 21300000, guid: 4c39b6a7eeec24c8ca8d243a5659a659, type: 3}
-  priceOfTile: 550
+  priceOfTile: 90
   alreadyBought: 0
+  ownerOfTile: None

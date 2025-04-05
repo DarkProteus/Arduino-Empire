@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A rechargeable battery for powering projects.
   typeOfTile: PowerSource
   spriteOfTile: {fileID: 21300000, guid: dc41760cf628340c49ff386ffa225e85, type: 3}
-  priceOfTile: 400
+  priceOfTile: 100
   alreadyBought: 0
+  ownerOfTile: None

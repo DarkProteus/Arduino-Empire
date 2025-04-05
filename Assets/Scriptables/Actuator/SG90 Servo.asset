@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A small servo motor for precise movement.
   typeOfTile: Actuator
   spriteOfTile: {fileID: 21300000, guid: 793bd5a370ae7426aabd15dd304e34c4, type: 3}
-  priceOfTile: 100
+  priceOfTile: 110
   alreadyBought: 0
+  ownerOfTile: None

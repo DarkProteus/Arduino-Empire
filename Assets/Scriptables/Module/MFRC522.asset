@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: An RFID module for reading NFC cards.
   typeOfTile: Module
   spriteOfTile: {fileID: 21300000, guid: 3a71f7632cd154528abb20fa26f06e8a, type: 3}
-  priceOfTile: 450
+  priceOfTile: 160
   alreadyBought: 0
+  ownerOfTile: None

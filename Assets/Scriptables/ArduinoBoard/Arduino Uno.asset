@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A classic board for beginners, based on ATmega328P.
   typeOfTile: ArduinoBoard
   spriteOfTile: {fileID: 21300000, guid: 19a2a3ecf28ca40d59cc4a9c646d23a4, type: 3}
-  priceOfTile: 1000
+  priceOfTile: 200
   alreadyBought: 0
+  ownerOfTile: None

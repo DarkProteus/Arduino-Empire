@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A Bluetooth module for wireless communication.
   typeOfTile: Module
   spriteOfTile: {fileID: 21300000, guid: 18e800a86f4714777bc77e7488f872d1, type: 3}
-  priceOfTile: 400
+  priceOfTile: 150
   alreadyBought: 0
+  ownerOfTile: None

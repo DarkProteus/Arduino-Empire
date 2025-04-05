@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A stepper motor for accurate rotation control.
   typeOfTile: Actuator
   spriteOfTile: {fileID: 21300000, guid: f9ed4e1ed1d234104b2546b66df3ccab, type: 3}
-  priceOfTile: 100
+  priceOfTile: 200
   alreadyBought: 0
+  ownerOfTile: None

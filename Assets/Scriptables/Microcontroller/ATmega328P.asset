@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: The microcontroller used in Arduino Uno.
   typeOfTile: Microcontroller
   spriteOfTile: {fileID: 21300000, guid: 959cb0b44cb334d818b8f88cda52c74c, type: 3}
-  priceOfTile: 1300
+  priceOfTile: 140
   alreadyBought: 0
+  ownerOfTile: None

@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A Wi-Fi-enabled microcontroller for IoT applications.
   typeOfTile: Microcontroller
   spriteOfTile: {fileID: 21300000, guid: ff5c54c5d77ed4361ba4cb2200a34c44, type: 3}
-  priceOfTile: 1200
+  priceOfTile: 180
   alreadyBought: 0
+  ownerOfTile: None

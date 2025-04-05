@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A gas and smoke detection sensor.
   typeOfTile: Sensor
   spriteOfTile: {fileID: 21300000, guid: 8e8478983761c4817bfa0720b61c8262, type: 3}
-  priceOfTile: 200
+  priceOfTile: 120
   alreadyBought: 0
+  ownerOfTile: None

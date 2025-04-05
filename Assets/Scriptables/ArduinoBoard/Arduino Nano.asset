@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A compact and versatile board for small-scale projects.
   typeOfTile: ArduinoBoard
   spriteOfTile: {fileID: 21300000, guid: ca19e314a22a44015997e2145226fb9c, type: 3}
-  priceOfTile: 700
+  priceOfTile: 160
   alreadyBought: 0
+  ownerOfTile: None

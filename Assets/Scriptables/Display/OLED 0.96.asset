@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A small, high-contrast OLED screen.
   typeOfTile: Display
   spriteOfTile: {fileID: 21300000, guid: ea634891a83ce4382973b448a4a40105, type: 3}
-  priceOfTile: 750
+  priceOfTile: 200
   alreadyBought: 0
+  ownerOfTile: None

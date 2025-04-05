@@ -15,5 +15,7 @@ MonoBehaviour:
   nameOfTile: Start
   descOfTile: Start
   typeOfTile: Event
+  spriteOfTile: {fileID: 0}
   priceOfTile: 0
-  alreadyBought: 0
+  alreadyBought: 1
+  ownerOfTile: None

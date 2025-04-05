@@ -7,6 +7,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject infoPanel;
+    [SerializeField] private GameObject gameFinishedPanel;
     [SerializeField] private TMP_Text descText;
     [SerializeField] private TMP_Text ownerText;
     [SerializeField] private Image img;
@@ -17,6 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button buyButton;
     [SerializeField] private GameController gc;
     [SerializeField] private TMP_Text infoText;
+    [SerializeField] private TMP_Text playerWinText;
     [SerializeField] private MoveController _mc;
     private bool alreadyBought;
     private string _curPlayer;
@@ -93,7 +95,14 @@ public class UIController : MonoBehaviour
             {
                 sellButton.interactable = false;
                 buyButton.interactable = false;
-                gc.curPlayer.gameObject.GetComponent<PlayerController>().playerBalance -= (int)tm.price / 10;
+                gc.curPlayer.gameObject.GetComponent<PlayerController>().playerBalance -= 20 + (int)(tm.price * 0.2f);
+                foreach (PlayerController pl in gc._players)
+                {
+                    if (pl.gameObject.name != gc.curPlayer.name)
+                    {
+                        pl.playerBalance+=20+(int)(tm.price*0.2f);
+                    }
+                }
             }
         }
         else
@@ -119,6 +128,7 @@ public class UIController : MonoBehaviour
                     gameObject.SetActive(true);
             }
         }
+        CheckGameFinished();
     }
     public void BuyTile()
     {
@@ -170,6 +180,30 @@ public class UIController : MonoBehaviour
                 infoText.gameObject.SetActive(true);
                 infoText.text = $"Власність продана";
 
+            }
+        }
+    }
+    public void CheckGameFinished()
+    {
+        string obj;
+        foreach (PlayerController pl in gc._players)
+        {
+            if (pl.playerBalance <= 0)
+            {
+                if (pl.gameObject.name == Players.PLAYER1.ToString())
+                {
+                    obj = Players.PLAYER2.ToString();
+                    gameFinishedPanel.SetActive(true);
+                    playerWinText.text = $"{obj} Won";
+                    Time.timeScale = 0f;
+                }
+                else if (pl.gameObject.name == Players.PLAYER2.ToString())
+                {
+                    obj = Players.PLAYER1.ToString();
+                    gameFinishedPanel.SetActive(true);
+                    playerWinText.text = $"{obj} Won";
+                    Time.timeScale = 0f;
+                }
             }
         }
     }

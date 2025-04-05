@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 public class CubeRandomizer : MonoBehaviour
 {
-    [SerializeField] private AudioClip _whoosh;
+    [SerializeField] private AudioClip whoosh;
     public AudioClip dice;
     public AudioSource audioSource;
 

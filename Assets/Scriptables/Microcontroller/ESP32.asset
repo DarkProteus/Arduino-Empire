@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A powerful microcontroller with built-in Wi-Fi and Bluetooth.
   typeOfTile: Microcontroller
   spriteOfTile: {fileID: 21300000, guid: bb43c59a96ffb42099bb51f2a35e5825, type: 3}
-  priceOfTile: 1300
+  priceOfTile: 300
   alreadyBought: 0
+  ownerOfTile: None

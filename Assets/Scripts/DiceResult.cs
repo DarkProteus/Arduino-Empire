@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 public class DiceResult : MonoBehaviour
 {
-    private Rigidbody rb;
+    private Rigidbody _rb;
     private Vector3 _diceVel;
     public int _diceNum;
     public int readNum;
@@ -12,7 +12,7 @@ public class DiceResult : MonoBehaviour
     [SerializeField] private GameObject _idlePos;
     [SerializeField] private GameObject _dicePos;
     [SerializeField] private GameObject _zoomPos;
-    private GameObject dice;
+    private GameObject _dice;
     private CubeRandomizer _cr;
     private MoveController _mc;
     private Vector3 _lastCamPos;
@@ -20,11 +20,11 @@ public class DiceResult : MonoBehaviour
     private HashSet<Collider> _triggeredObjects = new HashSet<Collider>();
     private void Start()
     {
-        dice = GameObject.Find("Dice");
+        _dice = GameObject.Find("Dice");
         readNum = 1;
         _mc = FindObjectOfType<MoveController>();
         _cr = FindObjectOfType<CubeRandomizer>();
-        _zoomPos = dice;
+        _zoomPos = _dice;
     }
     private void Update()
     {

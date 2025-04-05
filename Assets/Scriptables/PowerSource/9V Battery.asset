@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A common power source for Arduino boards.
   typeOfTile: PowerSource
   spriteOfTile: {fileID: 21300000, guid: 3a5ef9a003a8f4bbb81f263f0d38b07d, type: 3}
-  priceOfTile: 600
+  priceOfTile: 60
   alreadyBought: 0
+  ownerOfTile: None

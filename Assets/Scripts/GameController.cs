@@ -12,10 +12,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text rollInfoText;
     [SerializeField] public Button[] playersFinishTurn;
     private bool _lastTurnFinished;
+    private UIController _uc;
     public GameObject curPlayer;
     public static bool isReadyToRoll = true;
     private void Start()
     {
+        _uc = GetComponent<UIController>();
         _lastTurnFinished = true;
         FindObjectOfType<ModelLoader>().LoadModels(Players.PLAYER1.ToString());
         FindObjectOfType<ModelLoader>().LoadModels(Players.PLAYER2.ToString());
@@ -45,7 +47,6 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         UpdatePlayerBalance();
-
         if (isReadyToRoll)
         {
             TextRollController(); 

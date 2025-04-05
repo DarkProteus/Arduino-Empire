@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: A temperature and humidity sensor.
   typeOfTile: Sensor
   spriteOfTile: {fileID: 21300000, guid: f8c2e01a7cdc6404da91d49d86f6cd78, type: 3}
-  priceOfTile: 250
+  priceOfTile: 80
   alreadyBought: 0
+  ownerOfTile: None

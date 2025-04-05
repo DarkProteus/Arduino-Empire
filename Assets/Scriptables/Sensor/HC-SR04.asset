@@ -16,5 +16,6 @@ MonoBehaviour:
   descOfTile: An ultrasonic sensor for measuring distance.
   typeOfTile: Sensor
   spriteOfTile: {fileID: 21300000, guid: 16e018357c47d41568cf04c8c96e2bc4, type: 3}
-  priceOfTile: 300
+  priceOfTile: 100
   alreadyBought: 0
+  ownerOfTile: None
