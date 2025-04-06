@@ -7,6 +7,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject infoPanel;
+    [SerializeField] private Button closeButton;
     [SerializeField] private GameObject gameFinishedPanel;
     [SerializeField] private TMP_Text descText;
     [SerializeField] private TMP_Text ownerText;
@@ -19,7 +20,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameController gc;
     [SerializeField] private TMP_Text infoText;
     [SerializeField] private TMP_Text playerWinText;
-    [SerializeField] private MoveController _mc;
+    [SerializeField] private MoveController mc;
     private bool alreadyBought;
     private string _curPlayer;
     private int changesMade;
@@ -37,7 +38,7 @@ public class UIController : MonoBehaviour
                     CallPanelInfo(hit.collider.gameObject);
                 }
             }
-        }else if (Input.GetMouseButtonDown(0) && _mc.devCheck)
+        }else if (Input.GetMouseButtonDown(0) && mc.devCheck)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -54,6 +55,7 @@ public class UIController : MonoBehaviour
     }
     private void CallPanelInfo(GameObject obj)
     {
+        closeButton.onClick.RemoveAllListeners();
         infoPanel.SetActive(true);
         img.sprite = obj.GetComponent<TileManager>().sprite;
         nameText.text = obj.GetComponent<TileManager>().name;
@@ -64,9 +66,11 @@ public class UIController : MonoBehaviour
         alreadyBought = obj.GetComponent<TileManager>().alreadyBought;
         sellButton.gameObject.SetActive(false);
         buyButton.gameObject.SetActive(false);
+        closeButton.onClick.AddListener(CloseInfoPanel);
     }
     public void CallPanel(GameObject obj)
     {
+        closeButton.onClick.RemoveAllListeners();
         sellButton.gameObject.SetActive(true);
         buyButton.gameObject.SetActive(true);
         changesMade = 0;
@@ -111,8 +115,7 @@ public class UIController : MonoBehaviour
             sellButton.interactable = false;
             buyButton.interactable = true;
         }
-
-        
+        closeButton.onClick.AddListener(ClosePanel);
     }
     public void ClosePanel()
     {
@@ -129,6 +132,11 @@ public class UIController : MonoBehaviour
             }
         }
         CheckGameFinished();
+    }
+    public void CloseInfoPanel()
+    {
+        infoPanel.SetActive(false);
+        infoText.gameObject.SetActive(false);
     }
     public void BuyTile()
     {

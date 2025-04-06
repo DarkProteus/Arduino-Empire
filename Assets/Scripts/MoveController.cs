@@ -262,6 +262,7 @@ public class MoveController : MonoBehaviour
                                      .OnComplete(() => {
                                          GetTile();
                                      });
+            _lastIndex -= 28;
         }
         else
         {
