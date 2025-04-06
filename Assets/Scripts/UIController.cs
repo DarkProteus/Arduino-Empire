@@ -24,9 +24,6 @@ public class UIController : MonoBehaviour
     private bool alreadyBought;
     private string _curPlayer;
     private int changesMade;
-    /// <summary>
-    /// todo
-    /// </summary>
     void Update()
     {
         if (Input.GetMouseButtonDown(1)) 
@@ -56,21 +53,7 @@ public class UIController : MonoBehaviour
         }
         _curPlayer = gc.curPlayer.name;
     }
-    private void CallPanelInfo(GameObject obj)
-    {
-        closeButton.onClick.RemoveAllListeners();
-        infoPanel.SetActive(true);
-        img.sprite = obj.GetComponent<TileManager>().sprite;
-        nameText.text = obj.GetComponent<TileManager>().name;
-        descText.text = obj.GetComponent<TileManager>().desc;
-        ownerText.text = obj.GetComponent<TileManager>().owner;
-        typeText.text = obj.GetComponent<TileManager>().type;
-        priceText.text = obj.GetComponent<TileManager>().price.ToString();
-        alreadyBought = obj.GetComponent<TileManager>().alreadyBought;
-        sellButton.gameObject.SetActive(false);
-        buyButton.gameObject.SetActive(false);
-        closeButton.onClick.AddListener(CloseInfoPanel);
-    }
+    
     public void CallPanel(GameObject obj)
     {
         closeButton.onClick.RemoveAllListeners();
@@ -119,6 +102,21 @@ public class UIController : MonoBehaviour
             buyButton.interactable = true;
         }
         closeButton.onClick.AddListener(ClosePanel);
+    }
+    private void CallPanelInfo(GameObject obj)
+    {
+        closeButton.onClick.RemoveAllListeners();
+        infoPanel.SetActive(true);
+        img.sprite = obj.GetComponent<TileManager>().sprite;
+        nameText.text = obj.GetComponent<TileManager>().name;
+        descText.text = obj.GetComponent<TileManager>().desc;
+        ownerText.text = obj.GetComponent<TileManager>().owner;
+        typeText.text = obj.GetComponent<TileManager>().type;
+        priceText.text = obj.GetComponent<TileManager>().price.ToString();
+        alreadyBought = obj.GetComponent<TileManager>().alreadyBought;
+        sellButton.gameObject.SetActive(false);
+        buyButton.gameObject.SetActive(false);
+        closeButton.onClick.AddListener(CloseInfoPanel);
     }
     public void ClosePanel()
     {
