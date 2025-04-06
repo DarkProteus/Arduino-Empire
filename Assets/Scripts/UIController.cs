@@ -24,6 +24,9 @@ public class UIController : MonoBehaviour
     private bool alreadyBought;
     private string _curPlayer;
     private int changesMade;
+    /// <summary>
+    /// todo
+    /// </summary>
     void Update()
     {
         if (Input.GetMouseButtonDown(1)) 
