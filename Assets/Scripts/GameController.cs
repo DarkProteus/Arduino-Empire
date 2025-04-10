@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
-    [SerializeField] public PlayerController[] _players;
-    [SerializeField] private int _playersBalance;
-    [SerializeField] private TMP_Text[] _balanceText;
+    [SerializeField] public PlayerController[] players;
+    [SerializeField] private int playersBalance;
+    [SerializeField] private TMP_Text[] balanceText;
     [SerializeField] private TMP_Text rollInfoText;
     [SerializeField] public Button[] playersFinishTurn;
     private bool _lastTurnFinished;
     private UIController _uc;
-    public GameObject curPlayer;
+    [HideInInspector]public GameObject curPlayer;
     public static bool isReadyToRoll = true;
     private void Start()
     {
@@ -22,14 +23,14 @@ public class GameController : MonoBehaviour
         FindObjectOfType<ModelLoader>().LoadModels(Players.PLAYER1.ToString());
         FindObjectOfType<ModelLoader>().LoadModels(Players.PLAYER2.ToString());
 
-        _players = FindObjectsOfType<PlayerController>();
-        _players = _players.OrderByDescending(p => p.name == "PLAYER1").ToArray();
-        for (int i=0; i<_players.Length;i++)
+        players = FindObjectsOfType<PlayerController>();
+        players = players.OrderByDescending(p => p.name == "PLAYER1").ToArray();
+        for (var i=0; i<players.Length;i++)
         {
-            _players[i].playerBalance = _playersBalance;
-            _balanceText[i].text = _playersBalance.ToString();
+            players[i].playerBalance = playersBalance;
+            balanceText[i].text = playersBalance.ToString();
         }
-        curPlayer = _players[0].gameObject;
+        curPlayer = players[0].gameObject;
         rollInfoText.gameObject.SetActive(false);
 
         playersFinishTurn[0].onClick.AddListener(() =>
@@ -49,8 +50,10 @@ public class GameController : MonoBehaviour
         UpdatePlayerBalance();
         if (isReadyToRoll)
         {
+            //добавить еще раз метод финиш терн если у игрока пенальти. закончить ход и прервать метод
             TextRollController(); 
-            if (Input.GetKeyDown(KeyCode.Tab)&& _lastTurnFinished==true)
+            if (Input.GetKeyDown(KeyCode.Tab) && _lastTurnFinished &&
+                curPlayer.GetComponent<PlayerController>().passTurnCounter <= 0)
             {
                 _lastTurnFinished = false;
                 print(curPlayer); 
@@ -69,25 +72,26 @@ public class GameController : MonoBehaviour
     private void TextRollController()
     {
         rollInfoText.gameObject.SetActive(true);
-        rollInfoText.text = $"Гравець {int.Parse(curPlayer.tag)+1} кидає кубик";
+        rollInfoText.text = $"Гравець {int.Parse(curPlayer.tag)+1} кидає кубик.\n\r Натисніть TAB";
     }
 
     private void UpdatePlayerBalance()
     {
-        for (int i = 0; i < _players.Length; i++)
+        for (var i = 0; i < players.Length; i++)
         {
-            _balanceText[i].text = _players[i].playerBalance.ToString();
+            balanceText[i].text = players[i].playerBalance.ToString();
         }
     }
 
-    public void FinishTurn(int index)
+    private void FinishTurn(int index)
     {
         isReadyToRoll = true;
-        _players[index].isPlayerNextTurn = false;
-        _players[index == 1 ? 0 : 1].isPlayerNextTurn = true;
-        curPlayer = _players[index == 1 ? 0 : 1].gameObject;
+        players[index].isPlayerNextTurn = false;
+        players[index == 1 ? 0 : 1].isPlayerNextTurn = true;
+        curPlayer = players[index == 1 ? 0 : 1].gameObject;
         playersFinishTurn[index].gameObject.SetActive(false);
         _lastTurnFinished = true;
+        curPlayer.GetComponent<PlayerController>().passTurnCounter--;
     }
 }
 

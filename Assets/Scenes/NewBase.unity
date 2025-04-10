@@ -1554,10 +1554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f0be9a0ef9b894981c22b220f43a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stromTrooperModel: {fileID: 5670555350131397879, guid: 178d84ceadcf847c1aa35c7223d64cad, type: 3}
-  _elPrimoModel: {fileID: 6992533673061792026, guid: e145c6a3228d54424bf726131264fdc6, type: 3}
-  _creeperModel: {fileID: 1156677945594540481, guid: 59cddc6d949234d3fa35128a5a7a3d5b, type: 3}
-  _startGameTile: {fileID: 883019137}
+  stormTrooperModel: {fileID: 5670555350131397879, guid: 178d84ceadcf847c1aa35c7223d64cad, type: 3}
+  elPrimoModel: {fileID: 6992533673061792026, guid: e145c6a3228d54424bf726131264fdc6, type: 3}
+  creeperModel: {fileID: 1156677945594540481, guid: 59cddc6d949234d3fa35128a5a7a3d5b, type: 3}
+  startGameTile: {fileID: 883019137}
 --- !u!4 &239396270
 Transform:
   m_ObjectHideFlags: 0
@@ -1585,9 +1585,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510fae2b1da1c4526abebf42a3a386bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _players: []
-  _playersBalance: 1500
-  _balanceText:
+  players: []
+  playersBalance: 200
+  balanceText:
   - {fileID: 1186773837}
   - {fileID: 1728170109}
   rollInfoText: {fileID: 381728791}
@@ -1670,7 +1670,7 @@ MonoBehaviour:
   gc: {fileID: 239396272}
   infoText: {fileID: 1537158006}
   playerWinText: {fileID: 1885811834}
-  _mc: {fileID: 239396273}
+  mc: {fileID: 239396273}
 --- !u!1 &277923859
 GameObject:
   m_ObjectHideFlags: 0
@@ -14280,7 +14280,7 @@ GameObject:
   - component: {fileID: 1728170110}
   - component: {fileID: 1728170109}
   m_Layer: 5
-  m_Name: Player1Coins
+  m_Name: Player2Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

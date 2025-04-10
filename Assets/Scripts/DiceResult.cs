@@ -6,7 +6,7 @@ public class DiceResult : MonoBehaviour
 {
     private Rigidbody _rb;
     private Vector3 _diceVel;
-    public int _diceNum;
+    public byte _diceNum;
     public int readNum;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private GameObject _idlePos;

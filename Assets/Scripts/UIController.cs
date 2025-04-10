@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class UIController : MonoBehaviour
 {
@@ -19,32 +20,31 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameController gc;
     [SerializeField] private TMP_Text infoText;
     [SerializeField] private TMP_Text playerWinText;
-    [SerializeField] private MoveController _mc;
-    private bool alreadyBought;
+    [SerializeField] private MoveController mc;
+    private bool _alreadyBought;
     private string _curPlayer;
-    private int changesMade;
-    void Update()
+    private int _changesMade;
+
+    private void Update()
     {
         if (Input.GetMouseButtonDown(1)) 
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.collider.gameObject.TryGetComponent<TileManager>( out TileManager isExist))
+                if (hit.collider.gameObject.TryGetComponent<TileManager>( out var isExist))
                 {
                     CallPanelInfo(hit.collider.gameObject);
                 }
             }
-        }else if (Input.GetMouseButtonDown(0) && _mc.devCheck)
+        }else if (Input.GetMouseButtonDown(0) && mc.devCheck)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out var hit))
             {
-                if (hit.collider.gameObject.TryGetComponent<TileManager>(out TileManager isExist))
+                if (hit.collider.gameObject.TryGetComponent<TileManager>(out var isExist))
                 {
                     CallPanel(hit.collider.gameObject);
                 }
@@ -55,35 +55,37 @@ public class UIController : MonoBehaviour
     private void CallPanelInfo(GameObject obj)
     {
         infoPanel.SetActive(true);
-        img.sprite = obj.GetComponent<TileManager>().sprite;
-        nameText.text = obj.GetComponent<TileManager>().name;
-        descText.text = obj.GetComponent<TileManager>().desc;
-        ownerText.text = obj.GetComponent<TileManager>().owner;
-        typeText.text = obj.GetComponent<TileManager>().type;
-        priceText.text = obj.GetComponent<TileManager>().price.ToString();
-        alreadyBought = obj.GetComponent<TileManager>().alreadyBought;
+        var tm = infoText.GetComponent<TileManager>();
+        img.sprite = tm.sprite;
+        nameText.text = tm.name;
+        descText.text = tm.desc;
+        ownerText.text = tm.owner;
+        typeText.text = tm.type;
+        priceText.text = tm.price.ToString();
+        _alreadyBought = tm.alreadyBought;
         sellButton.gameObject.SetActive(false);
         buyButton.gameObject.SetActive(false);
     }
     public void CallPanel(GameObject obj)
     {
+        infoPanel.GetComponent<Image>().material.color = Color.white;
         sellButton.gameObject.SetActive(true);
         buyButton.gameObject.SetActive(true);
-        changesMade = 0;
+        _changesMade = 0;
         infoPanel.SetActive(true);
-        TileManager tm = obj.GetComponent<TileManager>();
+        var tm = obj.GetComponent<TileManager>();
         img.sprite = tm.sprite;
         nameText.text = tm.name;
         descText.text = tm.desc;
         typeText.text = tm.type;
         priceText.text = tm.price.ToString();
-        alreadyBought = tm.alreadyBought;
+        _alreadyBought = tm.alreadyBought;
         ownerText.text =
-            alreadyBought ?
+            _alreadyBought ?
             $"Власність гравця {(tm.owner == "PLAYER1" ? 1 : 2)}" :
             "Нічия власність";
-        print(alreadyBought ? $"Власність гравця {(tm.owner == "PLAYER1" ? 1 : 2)}" : "Нічия власність");
-        if (alreadyBought)
+        
+        if (_alreadyBought)
         {
             if (tm.owner == _curPlayer)
             {
@@ -93,10 +95,12 @@ public class UIController : MonoBehaviour
             }
             else
             {
+                var penalty = 20 + (int)(tm.price * 0.2f);
+                descText.text = $"Ця власніть вже продана. Сплатіть {penalty} енергії за користування";
                 sellButton.interactable = false;
                 buyButton.interactable = false;
-                gc.curPlayer.gameObject.GetComponent<PlayerController>().playerBalance -= 20 + (int)(tm.price * 0.2f);
-                foreach (PlayerController pl in gc._players)
+                gc.curPlayer.gameObject.GetComponent<PlayerController>().playerBalance -= penalty;
+                foreach (var pl in gc.players)
                 {
                     if (pl.gameObject.name != gc.curPlayer.name)
                     {
@@ -119,7 +123,7 @@ public class UIController : MonoBehaviour
         infoPanel.SetActive(false);
         infoText.gameObject.SetActive(false);
         GameController.isReadyToRoll = true; 
-        foreach (PlayerController pc in gc._players)
+        foreach (var pc in gc.players)
         {
             if (pc.isPlayerNextTurn)
             {
@@ -132,13 +136,12 @@ public class UIController : MonoBehaviour
     }
     public void BuyTile()
     {
-       foreach (PlayerController player in gc._players){
-            if (player.isPlayerNextTurn && changesMade == 0)
+       foreach (var player in gc.players){
+            if (player.isPlayerNextTurn && _changesMade == 0)
             {
-                GameObject obj = player.gameObject;
-                RaycastHit hit;
-                Vector3 downDirection = Vector3.down;
-                Physics.Raycast(obj.transform.position, downDirection, out hit, Mathf.Infinity);
+                var obj = player.gameObject;
+                var downDirection = Vector3.down;
+                Physics.Raycast(obj.transform.position, downDirection, out var hit, Mathf.Infinity);
                 if (obj.GetComponent<PlayerController>().playerBalance >= hit.transform.gameObject.GetComponent<TileManager>().price)
                 {
                     obj.GetComponent<PlayerController>().playerBalance -= hit.transform.gameObject.GetComponent<TileManager>().price;
@@ -150,7 +153,7 @@ public class UIController : MonoBehaviour
                     print($"{hit.transform.gameObject.name}:  {hit.transform.gameObject.GetComponent<TileManager>().price}");
                     sellButton.interactable = true;
                     buyButton.interactable = false;
-                    changesMade++;
+                    _changesMade++;
                 }
                 else
                 {
@@ -158,53 +161,64 @@ public class UIController : MonoBehaviour
                     infoText.text = $"Недостатній баланс";
                 }
             }
-        }
+       }
     }
     public void SellTile()
     {
-        foreach (PlayerController player in gc._players)
+        foreach (var player in gc.players)
         {
-            if (player.isPlayerNextTurn && changesMade == 0)
+            if (player.isPlayerNextTurn && _changesMade == 0)
             {
-                GameObject obj = player.gameObject;
-                RaycastHit hit;
-                Vector3 downDirection = Vector3.down;
-                Physics.Raycast(obj.transform.position, downDirection, out hit, Mathf.Infinity);
+                var obj = player.gameObject;
+                var downDirection = Vector3.down;
+                Physics.Raycast(obj.transform.position, downDirection, out var hit, Mathf.Infinity);
                 obj.GetComponent<PlayerController>().playerBalance += hit.transform.gameObject.GetComponent<TileManager>().price;
                 hit.transform.gameObject.GetComponent<TileManager>().owner = "None";
                 hit.transform.gameObject.GetComponent<TileManager>().alreadyBought = false;
                 sellButton.interactable = false;
                 buyButton.interactable = true;
                 print(obj.GetComponent<PlayerController>().playerBalance);
-                changesMade++;
+                _changesMade++;
                 infoText.gameObject.SetActive(true);
                 infoText.text = $"Власність продана";
 
             }
         }
     }
-    public void CheckGameFinished()
+
+    private void CheckGameFinished()
     {
-        string obj;
-        foreach (PlayerController pl in gc._players)
+        foreach (var pl in gc.players)
         {
             if (pl.playerBalance <= 0)
             {
+                string obj;
                 if (pl.gameObject.name == Players.PLAYER1.ToString())
                 {
                     obj = Players.PLAYER2.ToString();
                     gameFinishedPanel.SetActive(true);
-                    playerWinText.text = $"{obj} Won";
+                    playerWinText.text = $"{obj} Виграв";
                     Time.timeScale = 0f;
                 }
                 else if (pl.gameObject.name == Players.PLAYER2.ToString())
                 {
                     obj = Players.PLAYER1.ToString();
                     gameFinishedPanel.SetActive(true);
-                    playerWinText.text = $"{obj} Won";
+                    playerWinText.text = $"{obj} Виграв";
                     Time.timeScale = 0f;
                 }
             }
         }
+    }
+
+
+    private void PassTurn(short passTimes)
+    {
+        gc.curPlayer.gameObject.GetComponent<PlayerController>().passTurnCounter = passTimes;
+    }
+
+    private void PenaltyTurn(byte penalty)
+    {
+        gc.curPlayer.gameObject.GetComponent<PlayerController>().playerBalance -= penalty;
     }
 }

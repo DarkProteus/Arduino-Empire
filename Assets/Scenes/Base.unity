@@ -1247,10 +1247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f0be9a0ef9b894981c22b220f43a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stromTrooperModel: {fileID: 5670555350131397879, guid: 178d84ceadcf847c1aa35c7223d64cad, type: 3}
-  _elPrimoModel: {fileID: 6992533673061792026, guid: e145c6a3228d54424bf726131264fdc6, type: 3}
-  _creeperModel: {fileID: 1156677945594540481, guid: 59cddc6d949234d3fa35128a5a7a3d5b, type: 3}
-  _startGameTile: {fileID: 883019137}
+  stormTrooperModel: {fileID: 5670555350131397879, guid: 178d84ceadcf847c1aa35c7223d64cad, type: 3}
+  elPrimoModel: {fileID: 6992533673061792026, guid: e145c6a3228d54424bf726131264fdc6, type: 3}
+  creeperModel: {fileID: 1156677945594540481, guid: 59cddc6d949234d3fa35128a5a7a3d5b, type: 3}
+  startGameTile: {fileID: 883019137}
 --- !u!4 &239396270
 Transform:
   m_ObjectHideFlags: 0
@@ -1278,15 +1278,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510fae2b1da1c4526abebf42a3a386bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _players: []
-  _playersBalance: 1000
-  _balanceText:
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  playersBalance: 3000
+  balanceText:
   - {fileID: 1186773837}
   - {fileID: 1728170109}
   rollInfoText: {fileID: 381728791}
   playersFinishTurn:
   - {fileID: 1943104756}
   - {fileID: 119805515}
+  curPlayer: {fileID: 0}
 --- !u!114 &239396273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,6 +1339,7 @@ MonoBehaviour:
   _fourthPos: {fileID: 58214148}
   lastCamPos: {x: 5.2, y: 4.2, z: 0}
   lastCamRot: {x: 45, y: 270, z: 0}
+  devCheck: 0
 --- !u!114 &239396274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1349,6 +1353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoPanel: {fileID: 644355441}
+  gameFinishedPanel: {fileID: 0}
   descText: {fileID: 622501797}
   ownerText: {fileID: 1295634170}
   img: {fileID: 1467893639}
@@ -1359,6 +1364,8 @@ MonoBehaviour:
   buyButton: {fileID: 1068843301}
   gc: {fileID: 239396272}
   infoText: {fileID: 1537158006}
+  playerWinText: {fileID: 0}
+  mc: {fileID: 239396273}
 --- !u!1 &277923859
 GameObject:
   m_ObjectHideFlags: 0
@@ -11362,7 +11369,7 @@ GameObject:
   - component: {fileID: 1728170110}
   - component: {fileID: 1728170109}
   m_Layer: 5
-  m_Name: Player1Coins
+  m_Name: Player2Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15380,7 +15387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c04045de1843ec4da6164a1957d4fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _whoosh: {fileID: 8300000, guid: a42ac69a9557f47b180b655cd5d2d096, type: 3}
+  whoosh: {fileID: 0}
   dice: {fileID: 8300000, guid: 0d26c0922b5ed4ce0947a758b82f6981, type: 3}
   audioSource: {fileID: 8317609989972159193}
   rb: {fileID: 8317609989972159191}
