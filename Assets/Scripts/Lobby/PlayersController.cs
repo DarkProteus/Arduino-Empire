@@ -2,21 +2,23 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+
 public class PlayersController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _pickText;
-    [SerializeField] private TMP_Text[] _playersText;
+    [FormerlySerializedAs("_pickText")] [SerializeField] private TMP_Text pickText;
+    [FormerlySerializedAs("_playersText")] [SerializeField] private TMP_Text[] playersText;
     
     public static string player1Name;
     public static string player2Name;
 
-    private int counter = 0;
+    private int _counter = 0;
 
     private void Awake()
     {
-        _pickText.gameObject.SetActive(false);
+        pickText.gameObject.SetActive(false);
         GetComponent<PickCharController>().enabled = false;
-        foreach(var pText in _playersText)
+        foreach(var pText in playersText)
             pText.transform.parent.gameObject.SetActive(false);
     }
 
@@ -26,26 +28,26 @@ public class PlayersController : MonoBehaviour
     }
     public void PickPlayer(string charName)
     {
-            _playersText[counter].transform.parent.gameObject.SetActive(true);
-            _playersText[counter].text = $"Гравець {counter + 1} обрав {charName}";
-            PlayerPrefs.SetString($"PLAYER{counter + 1}", charName);
-            counter++;
+            playersText[_counter].transform.parent.gameObject.SetActive(true);
+            playersText[_counter].text = $"Гравець {_counter + 1} обрав {charName}";
+            PlayerPrefs.SetString($"PLAYER{_counter + 1}", charName);
+            _counter++;
             StartPicking(Players.PLAYER2);
     }
     private IEnumerator ChangeTextFlow(Players player)
     {
         yield return new WaitForSeconds(1f);
-        if (counter == 0)
+        if (_counter == 0)
         {
-            _pickText.gameObject.SetActive(true);
-            _pickText.text = $"Оберіть персонажа за якого будете грати";
+            pickText.gameObject.SetActive(true);
+            pickText.text = $"Оберіть персонажа за якого будете грати";
             
             yield return new WaitForSeconds(.3f);
             GetComponent<PickCharController>().enabled = true;
         }
 
-        _pickText.text = $"Гравець {(int)player+1} обирає персонажа";
-        if(counter == 2)
+        pickText.text = $"Гравець {(int)player+1} обирає персонажа";
+        if(_counter == 2)
         {
             GameObject.Find("CharsSelector").SetActive(false);
             StartCoroutine(GamePreparing());
@@ -53,11 +55,11 @@ public class PlayersController : MonoBehaviour
     }
     private IEnumerator GamePreparing()
     {
-        int c = 3;
+        var c = 3;
         while (c > 0)
         {
-            _pickText.text = $"Гравців обрано, гра почнеться через {c}";
-            yield return new WaitForSeconds(.1f);
+            pickText.text = $"Гравців обрано, гра почнеться через {c}";
+            yield return new WaitForSeconds(1f);
             c--;
         }
         SceneManager.LoadScene(1);
